@@ -1,19 +1,39 @@
 {
-  "updated": "2026-06-11",
+  "updated": "2026-06-11 16:20 UTC",
   "teams": {
     "usa": {
       "name": "United States",
       "shortName": "USA",
       "group": "D",
-      "groupOpponents": ["Paraguay", "Australia", "Türkiye"],
-      "record": { "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 }
+      "groupOpponents": [
+        "Paraguay",
+        "Australia",
+        "Türkiye"
+      ],
+      "record": {
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gf": 0,
+        "ga": 0
+      }
     },
     "mex": {
       "name": "México",
       "shortName": "MEX",
       "group": "A",
-      "groupOpponents": ["South Africa", "Korea Republic", "Czechia"],
-      "record": { "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 }
+      "groupOpponents": [
+        "South Africa",
+        "Korea Republic",
+        "Czechia"
+      ],
+      "record": {
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gf": 0,
+        "ga": 0
+      }
     }
   },
   "matches": [
@@ -25,15 +45,29 @@
       "city": "Mexico City",
       "lat": 19.3029,
       "lon": -99.1505,
-      "tv": { "english": "FOX", "spanish": "Telemundo", "streaming": "FOX One, Peacock, Tubi" },
+      "tv": {
+        "english": "FOX",
+        "spanish": "Telemundo",
+        "streaming": "FOX One, Peacock, Tubi"
+      },
       "watchNotes": "The tournament opener. Santiago Giménez leads the line with Raúl Jiménez in support; Edson Álvarez anchors midfield. Watch teenage playmaker Gilberto Mora between the lines. South Africa will sit deep and counter — patience and width are Mexico's keys.",
       "previews": [
-        { "title": "RotoWire tactical preview", "url": "https://www.rotowire.com/soccer/article/mexico-vs-south-africa-preview-predicted-lineups-team-news-world-cup-preview-117405" },
-        { "title": "Opta Analyst prediction", "url": "https://theanalyst.com/articles/mexico-vs-south-africa-prediction-world-cup-2026-match-preview" },
-        { "title": "Yahoo: Day 1 what to watch", "url": "https://sports.yahoo.com/soccer/article/world-cup-day-1-what-to-watch-mexico-gets-the-tournament-started-as-group-a-begins-play-024156535.html" }
+        {
+          "title": "RotoWire tactical preview",
+          "url": "https://www.rotowire.com/soccer/article/mexico-vs-south-africa-preview-predicted-lineups-team-news-world-cup-preview-117405"
+        },
+        {
+          "title": "Opta Analyst prediction",
+          "url": "https://theanalyst.com/articles/mexico-vs-south-africa-prediction-world-cup-2026-match-preview"
+        },
+        {
+          "title": "Yahoo: Day 1 what to watch",
+          "url": "https://sports.yahoo.com/soccer/article/world-cup-day-1-what-to-watch-mexico-gets-the-tournament-started-as-group-a-begins-play-024156535.html"
+        }
       ],
       "result": null,
-      "articles": []
+      "articles": [],
+      "espnId": "760415"
     },
     {
       "team": "usa",
@@ -43,34 +77,33 @@
       "city": "Inglewood, CA",
       "lat": 33.9535,
       "lon": -118.3392,
-      "tv": { "english": "FOX", "spanish": "Telemundo", "streaming": "FOX One, Peacock, Tubi" },
+      "tv": {
+        "english": "FOX",
+        "spanish": "Telemundo",
+        "streaming": "FOX One, Peacock, Tubi"
+      },
       "watchNotes": "Pochettino's side opens at home. Pulisic drifting in from the left is the main creative threat; Tyler Adams screens the back line. Paraguay are organized and physical — Miguel Almirón on the break is their danger man. Set pieces could decide a tight game.",
       "previews": [
-        { "title": "Sports Mole full preview", "url": "https://www.sportsmole.co.uk/football/usa/world-cup-2026/preview/usa-vs-paraguay-prediction-team-news-lineups_598859.html" },
-        { "title": "Goal.com: everything you need to know", "url": "https://www.goal.com/en-us/news/usa-paraguay-world-cup-preview/blt6d2779c2ca4a708f" },
-        { "title": "CBS: predicted USMNT XI", "url": "https://www.cbssports.com/soccer/news/usmnt-world-cup-starting-xi-prediction-usa-vs-paraguay/" },
-        { "title": "RotoWire tactical preview", "url": "https://www.rotowire.com/soccer/article/usa-vs-paraguay-preview-predicted-lineups-team-news-tactical-analysis-2026-world-cup-group-d-117529" }
+        {
+          "title": "Sports Mole full preview",
+          "url": "https://www.sportsmole.co.uk/football/usa/world-cup-2026/preview/usa-vs-paraguay-prediction-team-news-lineups_598859.html"
+        },
+        {
+          "title": "Goal.com: everything you need to know",
+          "url": "https://www.goal.com/en-us/news/usa-paraguay-world-cup-preview/blt6d2779c2ca4a708f"
+        },
+        {
+          "title": "CBS: predicted USMNT XI",
+          "url": "https://www.cbssports.com/soccer/news/usmnt-world-cup-starting-xi-prediction-usa-vs-paraguay/"
+        },
+        {
+          "title": "RotoWire tactical preview",
+          "url": "https://www.rotowire.com/soccer/article/usa-vs-paraguay-preview-predicted-lineups-team-news-tactical-analysis-2026-world-cup-group-d-117529"
+        }
       ],
       "result": null,
-      "articles": []
-    },
-    {
-      "team": "usa",
-      "opponent": "Australia",
-      "kickoff": "2026-06-19T12:00:00-07:00",
-      "venue": "Lumen Field",
-      "city": "Seattle, WA",
-      "lat": 47.5952,
-      "lon": -122.3316,
-      "tv": { "english": "FOX", "spanish": "Telemundo", "streaming": "FOX One, Peacock, Tubi" },
-      "watchNotes": "A noon kickoff in Seattle — and the World Cup's 1,000th match ever. Australia defend in a compact 3-4-2-1 block under Popovic — the US will need quick ball movement and runs in behind from Balogun. Watch Pulisic in the half-spaces against a deep defense.",
-      "previews": [
-        { "title": "RotoWire Group D deep dive", "url": "https://www.rotowire.com/soccer/article/2026-world-cup-group-d-preview-united-states-paraguay-australia-turkiye-tactics-lineups-set-pieces-odds-110622" },
-        { "title": "US Soccer match hub", "url": "https://www.ussoccer.com/competitions/fifa-world-cup-26/matches/united-states-australia-tickets-live-score-match-hub-lineups-highlights" },
-        { "title": "Bleacher Report group predictions", "url": "https://bleacherreport.com/articles/25435511-world-cup-2026-match-predictions-all-group-fixtures" }
-      ],
-      "result": null,
-      "articles": []
+      "articles": [],
+      "espnId": "760417"
     },
     {
       "team": "mex",
@@ -80,15 +113,61 @@
       "city": "Guadalajara",
       "lat": 20.6817,
       "lon": -103.4625,
-      "tv": { "english": "FOX/FS1", "spanish": "Telemundo", "streaming": "FOX One, Peacock" },
+      "tv": {
+        "english": "FOX/FS1",
+        "spanish": "Telemundo",
+        "streaming": "FOX One, Peacock"
+      },
       "watchNotes": "Likely the group's decisive match. Son Heung-min and Lee Kang-in give Korea real pace on the counter, so Mexico's fullbacks can't both push high. Giménez against Kim Min-jae is the matchup to watch.",
       "previews": [
-        { "title": "RotoWire Group A deep dive", "url": "https://www.rotowire.com/soccer/article/2026-world-cup-group-a-preview-mexico-south-africa-south-korea-czechia-tactics-lineups-set-pieces-odds-111369" },
-        { "title": "Yahoo Group A preview", "url": "https://sports.yahoo.com/articles/2026-world-cup-group-preview-090030044.html" },
-        { "title": "HITC: Group A guide", "url": "https://www.hitc.com/world-cup-2026-group-a-guide-mexico-favorites-as-south-korea-wait/" }
+        {
+          "title": "RotoWire Group A deep dive",
+          "url": "https://www.rotowire.com/soccer/article/2026-world-cup-group-a-preview-mexico-south-africa-south-korea-czechia-tactics-lineups-set-pieces-odds-111369"
+        },
+        {
+          "title": "Yahoo Group A preview",
+          "url": "https://sports.yahoo.com/articles/2026-world-cup-group-preview-090030044.html"
+        },
+        {
+          "title": "HITC: Group A guide",
+          "url": "https://www.hitc.com/world-cup-2026-group-a-guide-mexico-favorites-as-south-korea-wait/"
+        }
       ],
       "result": null,
-      "articles": []
+      "articles": [],
+      "espnId": "760441"
+    },
+    {
+      "team": "usa",
+      "opponent": "Australia",
+      "kickoff": "2026-06-19T12:00:00-07:00",
+      "venue": "Lumen Field",
+      "city": "Seattle, WA",
+      "lat": 47.5952,
+      "lon": -122.3316,
+      "tv": {
+        "english": "FOX",
+        "spanish": "Telemundo",
+        "streaming": "FOX One, Peacock, Tubi"
+      },
+      "watchNotes": "A noon kickoff in Seattle — and the World Cup's 1,000th match ever. Australia defend in a compact 3-4-2-1 block under Popovic — the US will need quick ball movement and runs in behind from Balogun. Watch Pulisic in the half-spaces against a deep defense.",
+      "previews": [
+        {
+          "title": "RotoWire Group D deep dive",
+          "url": "https://www.rotowire.com/soccer/article/2026-world-cup-group-d-preview-united-states-paraguay-australia-turkiye-tactics-lineups-set-pieces-odds-110622"
+        },
+        {
+          "title": "US Soccer match hub",
+          "url": "https://www.ussoccer.com/competitions/fifa-world-cup-26/matches/united-states-australia-tickets-live-score-match-hub-lineups-highlights"
+        },
+        {
+          "title": "Bleacher Report group predictions",
+          "url": "https://bleacherreport.com/articles/25435511-world-cup-2026-match-predictions-all-group-fixtures"
+        }
+      ],
+      "result": null,
+      "articles": [],
+      "espnId": "760442"
     },
     {
       "team": "mex",
@@ -98,14 +177,25 @@
       "city": "Mexico City",
       "lat": 19.3029,
       "lon": -99.1505,
-      "tv": { "english": "FOX/FS1", "spanish": "Telemundo", "streaming": "FOX One, Peacock" },
+      "tv": {
+        "english": "FOX/FS1",
+        "spanish": "Telemundo",
+        "streaming": "FOX One, Peacock"
+      },
       "watchNotes": "Back at the Azteca to close the group. Czechia are direct — Patrik Schick is excellent in the air, so Mexico must defend crosses. If Mexico need a result, expect Aguirre to push both wingers high from the start.",
       "previews": [
-        { "title": "RotoWire Group A deep dive", "url": "https://www.rotowire.com/soccer/article/2026-world-cup-group-a-preview-mexico-south-africa-south-korea-czechia-tactics-lineups-set-pieces-odds-111369" },
-        { "title": "FIFA match hub", "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021444" }
+        {
+          "title": "RotoWire Group A deep dive",
+          "url": "https://www.rotowire.com/soccer/article/2026-world-cup-group-a-preview-mexico-south-africa-south-korea-czechia-tactics-lineups-set-pieces-odds-111369"
+        },
+        {
+          "title": "FIFA match hub",
+          "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021444"
+        }
       ],
       "result": null,
-      "articles": []
+      "articles": [],
+      "espnId": "760467"
     },
     {
       "team": "usa",
@@ -115,15 +205,29 @@
       "city": "Inglewood, CA",
       "lat": 33.9535,
       "lon": -118.3392,
-      "tv": { "english": "FOX", "spanish": "Telemundo", "streaming": "FOX One, Peacock, Tubi" },
+      "tv": {
+        "english": "FOX",
+        "spanish": "Telemundo",
+        "streaming": "FOX One, Peacock, Tubi"
+      },
       "watchNotes": "Türkiye have the group's most talented attackers — Arda Güler and Kenan Yıldız between the lines, Çalhanoğlu dictating tempo. The US midfield must deny central space. Could decide who wins Group D.",
       "previews": [
-        { "title": "RotoWire Group D deep dive", "url": "https://www.rotowire.com/soccer/article/2026-world-cup-group-d-preview-united-states-paraguay-australia-turkiye-tactics-lineups-set-pieces-odds-110622" },
-        { "title": "FOX Sports match page", "url": "https://www.foxsports.com/soccer/fifa-world-cup-men-turkiye-vs-united-states-jun-25-2026-game-boxscore-647674" },
-        { "title": "Bleacher Report group predictions", "url": "https://bleacherreport.com/articles/25435511-world-cup-2026-match-predictions-all-group-fixtures" }
+        {
+          "title": "RotoWire Group D deep dive",
+          "url": "https://www.rotowire.com/soccer/article/2026-world-cup-group-d-preview-united-states-paraguay-australia-turkiye-tactics-lineups-set-pieces-odds-110622"
+        },
+        {
+          "title": "FOX Sports match page",
+          "url": "https://www.foxsports.com/soccer/fifa-world-cup-men-turkiye-vs-united-states-jun-25-2026-game-boxscore-647674"
+        },
+        {
+          "title": "Bleacher Report group predictions",
+          "url": "https://bleacherreport.com/articles/25435511-world-cup-2026-match-predictions-all-group-fixtures"
+        }
       ],
       "result": null,
-      "articles": []
+      "articles": [],
+      "espnId": "760470"
     }
   ],
   "collision": {
