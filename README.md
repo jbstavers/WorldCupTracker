@@ -1,6 +1,14 @@
-# World Cup Tracker — USA × México
+# World Cup Tracker — México × USA × Deutschland
 
-Static site tracking the US and Mexico through the 2026 World Cup.
+Static site tracking teams through the 2026 World Cup. Fully data-driven: columns, colors, and collision trackers all render from `data.json`.
+
+## Adding a team
+
+1. Add an entry to `"teams"` in `data.json` with `name`, `shortName`, `group`, `groupOpponents`, `record` (zeros), `order` (column position), and `colors` (`banner`, `trim`, `light`, `text`).
+2. Add the team to `TEAM_ABBR` in `scripts/update.py` (data.json key -> ESPN abbreviation, e.g. `"fra": "FRA"`).
+3. Optionally add `collision.pairs` entries for the new matchups.
+
+The next workflow run backfills the team's full schedule and any results automatically. Watch notes and preview links are hand-written per match.
 
 ## Run locally
 

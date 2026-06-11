@@ -16,10 +16,14 @@ from pathlib import Path
 DATA_PATH = Path(__file__).parent.parent / "data.json"
 SCOREBOARD = "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates={dates}"
 NEWS_RSS = "https://news.google.com/rss/search?q={query}&hl=en-US&gl=US&ceid=US:en"
+TOURNAMENT_START = "20260611"
 TOURNAMENT_END = "20260719"
 GRACE_HOURS = 2.5  # don't look for a result until this long after kickoff
 
-TEAM_ABBR = {"usa": "USA", "mex": "MEX"}
+# Tracked teams, keyed by data.json team id -> ESPN abbreviation.
+# To track another country: add it here AND to "teams" in data.json
+# (with name, group, colors, order) — fixtures and results then flow in.
+TEAM_ABBR = {"usa": "USA", "mex": "MEX", "ger": "GER"}
 
 VENUES = {
     "Estadio Banorte": ("Estadio Azteca", "Mexico City", 19.3029, -99.1505),
@@ -211,7 +215,19 @@ def main():
     data = json.loads(original)
     now = datetime.now(timezone.utc)
 
-    # 1. Results for matches past kickoff + grace period
+    # 1. Discover fixtures across the whole tournament (past + future),
+    #    so a newly tracked team gets its full schedule backfilled.
+    try:
+        board = fetch_scoreboard(f"{TOURNAMENT_START}-{TOURNAMENT_END}")
+        for event in board.get("events", []):
+            if event_team_sides(event) is None:
+                continue
+            if match_event(data, event) is None:
+                add_fixture(data, event)
+    except Exception as e:
+        print(f"Fixture discovery failed: {e}", file=sys.stderr)
+
+    # 2. Results for matches past kickoff + grace period
     pending_dates = set()
     for m in data["matches"]:
         if m.get("result"):
@@ -232,17 +248,6 @@ def main():
             m = match_event(data, event)
             if m is not None and not m.get("result"):
                 apply_result(m, event, data)
-
-    # 2. Discover new fixtures (knockout rounds) through the final
-    try:
-        future = fetch_scoreboard(f"{now.strftime('%Y%m%d')}-{TOURNAMENT_END}")
-        for event in future.get("events", []):
-            if event_team_sides(event) is None:
-                continue
-            if match_event(data, event) is None:
-                add_fixture(data, event)
-    except Exception as e:
-        print(f"Fixture discovery failed: {e}", file=sys.stderr)
 
     recompute_records(data)
     data["matches"].sort(key=lambda m: m["kickoff"])

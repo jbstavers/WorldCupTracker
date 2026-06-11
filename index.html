@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>México × USA · World Cup 2026</title>
+  <title>México × USA × Deutschland · World Cup 2026</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -14,63 +14,20 @@
 <body>
   <header class="masthead">
     <div class="masthead-inner">
-      <h1>México <span class="x">×</span> USA</h1>
+      <h1 id="masthead-title"></h1>
     </div>
-    <div class="masthead-stripes">
-      <span class="stripe stripe-mx-green"></span>
-      <span class="stripe stripe-mx-red"></span>
-      <span class="stripe stripe-white"></span>
-      <span class="stripe stripe-us-blue"></span>
-      <span class="stripe stripe-us-red"></span>
-    </div>
+    <div class="masthead-stripes" id="masthead-stripes"></div>
   </header>
 
-  <main class="scarf">
-    <section class="team-col" id="col-mex" aria-label="México">
-      <div class="team-banner banner-mex">
-        <div>
-          <h2>México</h2>
-          <p class="team-meta" id="meta-mex"></p>
-        </div>
-        <span class="crest crest-mex" aria-hidden="true">MX</span>
-      </div>
-      <div class="team-body">
-        <h3 class="section-label label-mex">Upcoming</h3>
-        <div id="upcoming-mex"></div>
-        <h3 class="section-label label-mex">Results</h3>
-        <div id="results-mex"></div>
-      </div>
-    </section>
+  <main class="scarf" id="scarf"></main>
 
-    <div class="spine" aria-hidden="true">
-      <div class="spine-line"></div>
-    </div>
-
-    <section class="team-col" id="col-usa" aria-label="United States">
-      <div class="team-banner banner-usa">
-        <div>
-          <h2>United States</h2>
-          <p class="team-meta" id="meta-usa"></p>
-        </div>
-        <span class="crest crest-usa" aria-hidden="true">US</span>
-      </div>
-      <div class="team-body">
-        <h3 class="section-label label-usa">Upcoming</h3>
-        <div id="upcoming-usa"></div>
-        <h3 class="section-label label-usa">Results</h3>
-        <div id="results-usa"></div>
-      </div>
-    </section>
-  </main>
-
-  <section class="collision" aria-label="Collision course">
-    <h2><span class="collision-icon" aria-hidden="true">⚔</span> Collision course</h2>
-    <p id="collision-summary"></p>
-    <div id="collision-scenarios"></div>
+  <section class="collision" aria-label="Collision courses">
+    <h2><span class="collision-icon" aria-hidden="true">⚔</span> Collision courses</h2>
+    <div id="collision-pairs"></div>
   </section>
 
   <footer class="site-footer">
-    <p>All kickoff times shown in your local time · Weather from Open-Meteo · Edit <code>data.json</code> to update matches, results, and articles</p>
+    <p>All kickoff times shown in your local time · Weather from Open-Meteo · Results update automatically every few hours</p>
   </footer>
 
   <script src="app.js"></script>

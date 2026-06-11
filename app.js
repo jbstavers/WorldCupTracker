@@ -9,18 +9,74 @@ const WEATHER_CODES = {
 async function init() {
   const res = await fetch("data.json");
   const data = await res.json();
-  renderTeamMeta(data);
-  renderMatches(data);
-  renderCollision(data.collision);
+  const order = Object.keys(data.teams).sort((a, b) => (data.teams[a].order || 99) - (data.teams[b].order || 99));
+  renderMasthead(data, order);
+  renderColumns(data, order);
+  renderCollision(data, order);
   fetchWeather(data.matches);
 }
 
-function renderTeamMeta(data) {
-  for (const key of ["usa", "mex"]) {
+function renderMasthead(data, order) {
+  document.getElementById("masthead-title").innerHTML =
+    order.map(k => data.teams[k].name).join(' <span class="x">×</span> ');
+  const stripes = document.getElementById("masthead-stripes");
+  for (const k of order) {
+    const c = data.teams[k].colors;
+    for (const color of [c.banner, c.trim]) {
+      const s = document.createElement("span");
+      s.className = "stripe";
+      s.style.background = color;
+      stripes.appendChild(s);
+    }
+  }
+}
+
+function teamStyle(t) {
+  const c = t.colors;
+  return `--t-banner:${c.banner};--t-trim:${c.trim};--t-light:${c.light};--t-text:${c.text};`;
+}
+
+function renderColumns(data, order) {
+  const scarf = document.getElementById("scarf");
+  scarf.style.gridTemplateColumns = `repeat(${order.length}, minmax(0, 1fr))`;
+  const sorted = [...data.matches].sort((a, b) => new Date(a.kickoff) - new Date(b.kickoff));
+
+  for (const key of order) {
     const t = data.teams[key];
     const r = t.record;
-    document.getElementById(`meta-${key}`).textContent =
-      `Group ${t.group} · ${r.w}W ${r.d}D ${r.l}L · vs ${t.groupOpponents.join(", ")}`;
+    const col = document.createElement("section");
+    col.className = "team-col";
+    col.setAttribute("aria-label", t.name);
+    col.style.cssText = teamStyle(t);
+    col.innerHTML = `
+      <div class="team-banner">
+        <div>
+          <h2>${t.name}</h2>
+          <p class="team-meta">Group ${t.group} · ${r.w}W ${r.d}D ${r.l}L</p>
+        </div>
+        <span class="crest" aria-hidden="true">${t.shortName.slice(0, 2)}</span>
+      </div>
+      <div class="team-body">
+        <h3 class="section-label">Upcoming</h3>
+        <div class="upcoming"></div>
+        <h3 class="section-label">Results</h3>
+        <div class="results"></div>
+      </div>`;
+    const up = col.querySelector(".upcoming");
+    const done = col.querySelector(".results");
+    let isNext = true;
+    for (const m of sorted) {
+      if (m.team !== key) continue;
+      if (m.result) {
+        done.appendChild(resultCard(m, t));
+      } else {
+        up.appendChild(matchCard(m, isNext));
+        isNext = false;
+      }
+    }
+    if (!up.children.length) up.innerHTML = `<p class="empty-note">No matches scheduled — check back after this round.</p>`;
+    if (!done.children.length) done.innerHTML = `<p class="empty-note">No matches played yet.</p>`;
+    scarf.appendChild(col);
   }
 }
 
@@ -36,50 +92,21 @@ function relativeBadge(iso) {
   const now = new Date();
   const d = new Date(iso);
   const days = Math.floor((d - new Date(now.getFullYear(), now.getMonth(), now.getDate())) / 86400000);
-  if (d < now && days <= 0) return { text: "Today", soon: true };
-  if (days === 0) return { text: "Today", soon: true };
+  if (days <= 0) return { text: "Today", soon: true };
   if (days === 1) return { text: "Tomorrow", soon: true };
-  if (days <= 3) return { text: `In ${days} days`, soon: true };
-  return { text: `In ${days} days`, soon: false };
-}
-
-function renderMatches(data) {
-  const containers = {
-    usa: { up: document.getElementById("upcoming-usa"), done: document.getElementById("results-usa") },
-    mex: { up: document.getElementById("upcoming-mex"), done: document.getElementById("results-mex") }
-  };
-  const sorted = [...data.matches].sort((a, b) => new Date(a.kickoff) - new Date(b.kickoff));
-  const firstUpcoming = {};
-
-  for (const m of sorted) {
-    if (m.result) {
-      containers[m.team].done.appendChild(resultCard(m, data.teams[m.team]));
-    } else {
-      const isNext = !firstUpcoming[m.team];
-      firstUpcoming[m.team] = true;
-      containers[m.team].up.appendChild(matchCard(m, isNext));
-    }
-  }
-
-  for (const key of ["usa", "mex"]) {
-    if (!containers[key].up.children.length)
-      containers[key].up.innerHTML = `<p class="empty-note">Group stage complete — see results below.</p>`;
-    if (!containers[key].done.children.length)
-      containers[key].done.innerHTML = `<p class="empty-note">No matches played yet.</p>`;
-  }
+  return { text: `In ${days} days`, soon: days <= 3 };
 }
 
 function matchCard(m, isNext) {
   const card = document.createElement("div");
-  card.className = "match-card" + (isNext ? ` next-${m.team}` : "");
+  card.className = "match-card" + (isNext ? " next" : "");
   const badge = relativeBadge(m.kickoff);
-  const badgeClass = badge.soon ? (m.team === "mex" ? "badge-soon-mex" : "badge-soon") : "badge-later";
   const stageTag = m.stage ? `<div class="stage-tag-row"><span class="stage-tag">${m.stage}</span></div>` : "";
   card.innerHTML = `
     ${stageTag}
     <div class="match-top">
       <span class="match-opp">vs ${m.opponent}</span>
-      <span class="badge ${badgeClass}">${badge.text}</span>
+      <span class="badge ${badge.soon ? "badge-soon" : "badge-later"}">${badge.text}</span>
     </div>
     <div class="match-when">${fmtKickoff(m.kickoff)} · ${m.venue}${m.city ? ", " + m.city : ""}</div>
     ${m.lat != null ? `<div class="match-row">
@@ -112,29 +139,43 @@ function resultCard(m, team) {
     .join(" · ");
   card.innerHTML = `
     <div class="result-score"><span class="${outcome}">${team.shortName} ${r.us}–${r.them}</span> ${m.opponent}${r.note ? ` <span class="result-note">(${r.note})</span>` : ""}${m.stage ? ` <span class="stage-tag">${m.stage}</span>` : ""}</div>
-    <div class="result-meta">${fmtKickoff(m.kickoff)} · ${m.venue}, ${m.city}</div>
+    <div class="result-meta">${fmtKickoff(m.kickoff)} · ${m.venue}${m.city ? ", " + m.city : ""}</div>
     ${links ? `<div class="result-articles">${links}</div>` : ""}`;
   return card;
 }
 
-function renderCollision(c) {
-  document.getElementById("collision-summary").textContent = c.summary;
-  const wrap = document.getElementById("collision-scenarios");
-  for (const s of c.scenarios) {
-    const row = document.createElement("div");
-    row.className = `scenario scenario-${s.status || "open"}`;
-    row.innerHTML = `
-      <div>
-        <div class="scenario-label">${s.label}</div>
-        <div class="scenario-detail">${s.detail}</div>
-      </div>
-      <span class="scenario-meeting">${s.meeting}</span>`;
-    wrap.appendChild(row);
+function renderCollision(data, order) {
+  const wrap = document.getElementById("collision-pairs");
+  for (const pair of data.collision.pairs) {
+    const [a, b] = pair.teams.map(k => data.teams[k]);
+    const block = document.createElement("div");
+    block.className = "pair-block";
+    block.innerHTML = `
+      <h3 class="pair-title">
+        <span style="color:${a.colors.banner}">${a.shortName}</span>
+        <span class="x">×</span>
+        <span style="color:${b.colors.banner}">${b.shortName}</span>
+      </h3>
+      <p class="pair-summary">${pair.summary}</p>
+      <div class="pair-scenarios"></div>`;
+    const list = block.querySelector(".pair-scenarios");
+    for (const s of pair.scenarios) {
+      const row = document.createElement("div");
+      row.className = `scenario scenario-${s.status || "open"}`;
+      row.innerHTML = `
+        <div>
+          <div class="scenario-label">${s.label}</div>
+          <div class="scenario-detail">${s.detail}</div>
+        </div>
+        <span class="scenario-meeting">${s.meeting}</span>`;
+      list.appendChild(row);
+    }
+    wrap.appendChild(block);
   }
 }
 
 async function fetchWeather(matches) {
-  const upcoming = matches.filter(m => !m.result);
+  const upcoming = matches.filter(m => !m.result && m.lat != null);
   for (const m of upcoming) {
     const el = document.querySelector(`.weather[data-id="${m.kickoff}|${m.lat}|${m.lon}"]`);
     if (!el) continue;
