@@ -8,7 +8,7 @@
       "groupOpponents": [
         "Paraguay",
         "Australia",
-        "Türkiye"
+        "Turkey"
       ],
       "record": {
         "w": 0,
@@ -31,7 +31,7 @@
       "group": "A",
       "groupOpponents": [
         "South Africa",
-        "Korea Republic",
+        "South Korea",
         "Czechia"
       ],
       "record": {
@@ -55,7 +55,7 @@
       "group": "E",
       "groupOpponents": [
         "Curaçao",
-        "Côte d'Ivoire",
+        "Ivory Coast",
         "Ecuador"
       ],
       "record": {
@@ -177,7 +177,7 @@
     },
     {
       "team": "mex",
-      "opponent": "Korea Republic",
+      "opponent": "South Korea",
       "kickoff": "2026-06-18T18:00:00-07:00",
       "venue": "Estadio Akron",
       "city": "Guadalajara",
@@ -241,7 +241,7 @@
     },
     {
       "team": "ger",
-      "opponent": "Côte d'Ivoire",
+      "opponent": "Ivory Coast",
       "kickoff": "2026-06-20T13:00:00-07:00",
       "venue": "BMO Field",
       "city": "Toronto",
@@ -333,7 +333,7 @@
     },
     {
       "team": "usa",
-      "opponent": "Türkiye",
+      "opponent": "Turkey",
       "kickoff": "2026-06-25T19:00:00-07:00",
       "venue": "SoFi Stadium",
       "city": "Inglewood, CA",
@@ -344,7 +344,7 @@
         "spanish": "Telemundo",
         "streaming": "FOX One, Peacock, Tubi"
       },
-      "watchNotes": "Türkiye have the group's most talented attackers — Arda Güler and Kenan Yıldız between the lines, Çalhanoğlu dictating tempo. The US midfield must deny central space. Could decide who wins Group D.",
+      "watchNotes": "Turkey have the group's most talented attackers — Arda Güler and Kenan Yıldız between the lines, Çalhanoğlu dictating tempo. The US midfield must deny central space. Could decide who wins Group D.",
       "previews": [
         {
           "title": "RotoWire Group D deep dive",
