@@ -18,7 +18,6 @@ SCOREBOARD = "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/sc
 NEWS_RSS = "https://news.google.com/rss/search?q={query}&hl=en-US&gl=US&ceid=US:en"
 TOURNAMENT_START = "20260611"
 TOURNAMENT_END = "20260719"
-GRACE_HOURS = 2.5  # don't look for a result until this long after kickoff
 
 # Tracked teams, keyed by data.json team id -> ESPN abbreviation.
 # To track another country: add it here AND to "teams" in data.json
@@ -227,13 +226,14 @@ def main():
     except Exception as e:
         print(f"Fixture discovery failed: {e}", file=sys.stderr)
 
-    # 2. Results for matches past kickoff + grace period
+    # 2. Results for any match past kickoff (ESPN's `completed` flag is
+    #    the gate against recording a result early)
     pending_dates = set()
     for m in data["matches"]:
         if m.get("result"):
             continue
         kickoff = datetime.fromisoformat(m["kickoff"])
-        if now - kickoff > timedelta(hours=GRACE_HOURS):
+        if now > kickoff:
             d = kickoff.astimezone(timezone.utc).strftime("%Y%m%d")
             pending_dates.add(d)
             pending_dates.add((kickoff + timedelta(days=1)).strftime("%Y%m%d"))
@@ -247,7 +247,10 @@ def main():
         for event in board.get("events", []):
             m = match_event(data, event)
             if m is not None and not m.get("result"):
-                apply_result(m, event, data)
+                status = event["competitions"][0]["status"]["type"]
+                if not apply_result(m, event, data):
+                    print(f"Not final yet: {m['team'].upper()} vs {m['opponent']} "
+                          f"— ESPN status {status.get('name')} ({status.get('detail')})")
 
     recompute_records(data)
     data["matches"].sort(key=lambda m: m["kickoff"])
