@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-11 21:08 UTC",
+  "updated": "2026-06-11 21:55 UTC",
   "teams": {
     "usa": {
       "name": "United States",
@@ -35,10 +35,10 @@
         "Czechia"
       ],
       "record": {
-        "w": 0,
+        "w": 1,
         "d": 0,
         "l": 0,
-        "gf": 0,
+        "gf": 2,
         "ga": 0
       },
       "order": 1,
@@ -103,8 +103,20 @@
           "url": "https://sports.yahoo.com/soccer/article/world-cup-day-1-what-to-watch-mexico-gets-the-tournament-started-as-group-a-begins-play-024156535.html"
         }
       ],
-      "result": null,
-      "articles": [],
+      "result": {
+        "us": 2,
+        "them": 0
+      },
+      "articles": [
+        {
+          "title": "ESPN match report",
+          "url": "https://www.espn.com/soccer/report/_/gameId/760415"
+        },
+        {
+          "title": "ESPN highlights",
+          "url": "https://www.espn.com/soccer/video/_/gameId/760415"
+        }
+      ],
       "espnId": "760415"
     },
     {
