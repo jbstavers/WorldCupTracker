@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-11 16:20 UTC",
+  "updated": "2026-06-11 21:08 UTC",
   "teams": {
     "usa": {
       "name": "United States",
@@ -144,6 +144,38 @@
       "espnId": "760417"
     },
     {
+      "team": "ger",
+      "opponent": "Curaçao",
+      "kickoff": "2026-06-14T10:00:00-07:00",
+      "venue": "NRG Stadium",
+      "city": "Houston, TX",
+      "lat": 29.6847,
+      "lon": -95.4107,
+      "tv": {
+        "english": "FOX/FS1",
+        "spanish": "Telemundo",
+        "streaming": "FOX One, Peacock"
+      },
+      "watchNotes": "Nagelsmann's side opens against the smallest nation ever at a World Cup. Musiala and Wirtz float between the lines; Kimmich dictates from deep. Curaçao will pack the box — patience and early width are the keys.",
+      "previews": [
+        {
+          "title": "ESPN: Group E teams and stats",
+          "url": "https://www.espn.com/soccer/story/_/id/48999982/group-e-2026-world-cup-teams-records-stats-know-germany-curacao-ecuador-ivory-coast"
+        },
+        {
+          "title": "Goal: Germany ultimate guide",
+          "url": "https://www.goal.com/en/world-cup-teams/group-e/world-cup-2026-guide-germany/O~blt6ae81a9c34786f11"
+        },
+        {
+          "title": "Bundesliga: Group E ones to watch",
+          "url": "https://www.bundesliga.com/en/bundesliga/news/ones-to-watch-world-cup-group-e-musiala-diomande-nmecha-37752"
+        }
+      ],
+      "result": null,
+      "articles": [],
+      "espnId": "760422"
+    },
+    {
       "team": "mex",
       "opponent": "Korea Republic",
       "kickoff": "2026-06-18T18:00:00-07:00",
@@ -208,6 +240,38 @@
       "espnId": "760442"
     },
     {
+      "team": "ger",
+      "opponent": "Côte d'Ivoire",
+      "kickoff": "2026-06-20T13:00:00-07:00",
+      "venue": "BMO Field",
+      "city": "Toronto",
+      "lat": 43.6332,
+      "lon": -79.4186,
+      "tv": {
+        "english": "FOX/FS1",
+        "spanish": "Telemundo",
+        "streaming": "FOX One, Peacock"
+      },
+      "watchNotes": "The group's real test. Ivory Coast bring pace on the wings and Kessié's power in midfield — Germany's high line will get stretched. Watch whether Nagelsmann starts a true 9 or plays Musiala false-nine.",
+      "previews": [
+        {
+          "title": "ESPN: Group E teams and stats",
+          "url": "https://www.espn.com/soccer/story/_/id/48999982/group-e-2026-world-cup-teams-records-stats-know-germany-curacao-ecuador-ivory-coast"
+        },
+        {
+          "title": "Goal: Germany ultimate guide",
+          "url": "https://www.goal.com/en/world-cup-teams/group-e/world-cup-2026-guide-germany/O~blt6ae81a9c34786f11"
+        },
+        {
+          "title": "Bundesliga: Group E ones to watch",
+          "url": "https://www.bundesliga.com/en/bundesliga/news/ones-to-watch-world-cup-group-e-musiala-diomande-nmecha-37752"
+        }
+      ],
+      "result": null,
+      "articles": [],
+      "espnId": "760448"
+    },
+    {
       "team": "mex",
       "opponent": "Czechia",
       "kickoff": "2026-06-24T18:00:00-07:00",
@@ -234,6 +298,38 @@
       "result": null,
       "articles": [],
       "espnId": "760467"
+    },
+    {
+      "team": "ger",
+      "opponent": "Ecuador",
+      "kickoff": "2026-06-25T13:00:00-07:00",
+      "venue": "MetLife Stadium",
+      "city": "East Rutherford, NJ",
+      "lat": 40.8128,
+      "lon": -74.0742,
+      "tv": {
+        "english": "FOX/FS1",
+        "spanish": "Telemundo",
+        "streaming": "FOX One, Peacock"
+      },
+      "watchNotes": "Likely decides who wins Group E. Ecuador are compact, physical, and dangerous on set pieces, with Moisés Caicedo screening everything. A draw may suit both — expect a tactical chess match.",
+      "previews": [
+        {
+          "title": "ESPN: Group E teams and stats",
+          "url": "https://www.espn.com/soccer/story/_/id/48999982/group-e-2026-world-cup-teams-records-stats-know-germany-curacao-ecuador-ivory-coast"
+        },
+        {
+          "title": "Goal: Germany ultimate guide",
+          "url": "https://www.goal.com/en/world-cup-teams/group-e/world-cup-2026-guide-germany/O~blt6ae81a9c34786f11"
+        },
+        {
+          "title": "Bundesliga: Group E ones to watch",
+          "url": "https://www.bundesliga.com/en/bundesliga/news/ones-to-watch-world-cup-group-e-musiala-diomande-nmecha-37752"
+        }
+      ],
+      "result": null,
+      "articles": [],
+      "espnId": "760468"
     },
     {
       "team": "usa",
@@ -266,99 +362,6 @@
       "result": null,
       "articles": [],
       "espnId": "760470"
-    },
-    {
-      "team": "ger",
-      "opponent": "Curaçao",
-      "kickoff": "2026-06-14T10:00:00-07:00",
-      "venue": "NRG Stadium",
-      "city": "Houston, TX",
-      "lat": 29.6847,
-      "lon": -95.4107,
-      "tv": {
-        "english": "FOX/FS1",
-        "spanish": "Telemundo",
-        "streaming": "FOX One, Peacock"
-      },
-      "watchNotes": "Nagelsmann's side opens against the smallest nation ever at a World Cup. Musiala and Wirtz float between the lines; Kimmich dictates from deep. Curaçao will pack the box — patience and early width are the keys.",
-      "previews": [
-        {
-          "title": "ESPN: Group E teams and stats",
-          "url": "https://www.espn.com/soccer/story/_/id/48999982/group-e-2026-world-cup-teams-records-stats-know-germany-curacao-ecuador-ivory-coast"
-        },
-        {
-          "title": "Goal: Germany ultimate guide",
-          "url": "https://www.goal.com/en/world-cup-teams/group-e/world-cup-2026-guide-germany/O~blt6ae81a9c34786f11"
-        },
-        {
-          "title": "Bundesliga: Group E ones to watch",
-          "url": "https://www.bundesliga.com/en/bundesliga/news/ones-to-watch-world-cup-group-e-musiala-diomande-nmecha-37752"
-        }
-      ],
-      "result": null,
-      "articles": []
-    },
-    {
-      "team": "ger",
-      "opponent": "Côte d'Ivoire",
-      "kickoff": "2026-06-20T13:00:00-07:00",
-      "venue": "BMO Field",
-      "city": "Toronto",
-      "lat": 43.6332,
-      "lon": -79.4186,
-      "tv": {
-        "english": "FOX/FS1",
-        "spanish": "Telemundo",
-        "streaming": "FOX One, Peacock"
-      },
-      "watchNotes": "The group's real test. Ivory Coast bring pace on the wings and Kessié's power in midfield — Germany's high line will get stretched. Watch whether Nagelsmann starts a true 9 or plays Musiala false-nine.",
-      "previews": [
-        {
-          "title": "ESPN: Group E teams and stats",
-          "url": "https://www.espn.com/soccer/story/_/id/48999982/group-e-2026-world-cup-teams-records-stats-know-germany-curacao-ecuador-ivory-coast"
-        },
-        {
-          "title": "Goal: Germany ultimate guide",
-          "url": "https://www.goal.com/en/world-cup-teams/group-e/world-cup-2026-guide-germany/O~blt6ae81a9c34786f11"
-        },
-        {
-          "title": "Bundesliga: Group E ones to watch",
-          "url": "https://www.bundesliga.com/en/bundesliga/news/ones-to-watch-world-cup-group-e-musiala-diomande-nmecha-37752"
-        }
-      ],
-      "result": null,
-      "articles": []
-    },
-    {
-      "team": "ger",
-      "opponent": "Ecuador",
-      "kickoff": "2026-06-25T13:00:00-07:00",
-      "venue": "MetLife Stadium",
-      "city": "East Rutherford, NJ",
-      "lat": 40.8128,
-      "lon": -74.0742,
-      "tv": {
-        "english": "FOX/FS1",
-        "spanish": "Telemundo",
-        "streaming": "FOX One, Peacock"
-      },
-      "watchNotes": "Likely decides who wins Group E. Ecuador are compact, physical, and dangerous on set pieces, with Moisés Caicedo screening everything. A draw may suit both — expect a tactical chess match.",
-      "previews": [
-        {
-          "title": "ESPN: Group E teams and stats",
-          "url": "https://www.espn.com/soccer/story/_/id/48999982/group-e-2026-world-cup-teams-records-stats-know-germany-curacao-ecuador-ivory-coast"
-        },
-        {
-          "title": "Goal: Germany ultimate guide",
-          "url": "https://www.goal.com/en/world-cup-teams/group-e/world-cup-2026-guide-germany/O~blt6ae81a9c34786f11"
-        },
-        {
-          "title": "Bundesliga: Group E ones to watch",
-          "url": "https://www.bundesliga.com/en/bundesliga/news/ones-to-watch-world-cup-group-e-musiala-diomande-nmecha-37752"
-        }
-      ],
-      "result": null,
-      "articles": []
     }
   ],
   "collision": {
