@@ -26,7 +26,6 @@ body {
 .masthead { text-align: center; padding: 2.5rem 1rem 0; }
 .masthead h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 900; letter-spacing: -0.02em; }
 .masthead .x { color: var(--gold); font-weight: 400; }
-.subtitle { color: var(--ink-soft); font-size: 0.95rem; margin-top: 0.25rem; }
 .masthead-stripes { display: flex; height: 6px; max-width: 280px; margin: 1.25rem auto 0; border-radius: 3px; overflow: hidden; }
 .stripe { flex: 1; }
 .stripe-us-blue { background: var(--us-blue); }
