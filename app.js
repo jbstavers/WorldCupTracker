@@ -81,15 +81,15 @@ function matchCard(m, isNext) {
       <span class="match-opp">vs ${m.opponent}</span>
       <span class="badge ${badgeClass}">${badge.text}</span>
     </div>
-    <div class="match-when">${fmtKickoff(m.kickoff)} · ${m.venue}, ${m.city}</div>
-    <div class="match-row">
+    <div class="match-when">${fmtKickoff(m.kickoff)} · ${m.venue}${m.city ? ", " + m.city : ""}</div>
+    ${m.lat != null ? `<div class="match-row">
       <span class="weather" data-id="${m.kickoff}|${m.lat}|${m.lon}"><span class="ico">☁</span> Loading forecast…</span>
-    </div>
+    </div>` : ""}
     <div class="match-row">
       <span><span class="ico">📺</span> ${m.tv.english} (Eng) · ${m.tv.spanish} (Esp)</span>
       <span><span class="ico">▶</span> ${m.tv.streaming}</span>
     </div>
-    <p class="watch-notes">${m.watchNotes}</p>
+    ${m.watchNotes ? `<p class="watch-notes">${m.watchNotes}</p>` : ""}
     ${previewLinks(m)}`;
   return card;
 }
@@ -111,7 +111,7 @@ function resultCard(m, team) {
     .map(a => `<a href="${a.url}" target="_blank" rel="noopener">${a.title}</a>`)
     .join(" · ");
   card.innerHTML = `
-    <div class="result-score"><span class="${outcome}">${team.shortName} ${r.us}–${r.them}</span> ${m.opponent}${m.stage ? ` <span class="stage-tag">${m.stage}</span>` : ""}</div>
+    <div class="result-score"><span class="${outcome}">${team.shortName} ${r.us}–${r.them}</span> ${m.opponent}${r.note ? ` <span class="result-note">(${r.note})</span>` : ""}${m.stage ? ` <span class="stage-tag">${m.stage}</span>` : ""}</div>
     <div class="result-meta">${fmtKickoff(m.kickoff)} · ${m.venue}, ${m.city}</div>
     ${links ? `<div class="result-articles">${links}</div>` : ""}`;
   return card;

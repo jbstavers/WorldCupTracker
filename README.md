@@ -13,7 +13,20 @@ python3 -m http.server 8000
 
 Open http://localhost:8000
 
-## Updating data
+## Automatic updates
+
+A GitHub Action (`.github/workflows/update.yml`) runs `scripts/update.py` every 3 hours and commits `data.json` only when something changed — so on non-game days there are no commits, and results land within ~3 hours of full time. It:
+
+- pulls final scores from ESPN's public scoreboard API (no key) once a match is 2.5+ hours past kickoff
+- attaches recap articles from Google News RSS, falling back to the ESPN match report
+- discovers new fixtures (knockout rounds) automatically as they're scheduled, with stage, venue, and weather coordinates
+- recomputes each team's W-D-L record
+
+Run it on demand from the repo's Actions tab (workflow_dispatch), or locally with `python3 scripts/update.py`.
+
+Not automated (still hand-edited): `watchNotes` and `previews` for new matches, and the `collision.scenarios` statuses — those need judgment.
+
+## Updating data by hand
 
 Everything lives in `data.json`:
 

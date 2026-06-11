@@ -87,6 +87,7 @@ body {
 .result-score .win { color: var(--mx-green); }
 .result-score .loss { color: var(--mx-red); }
 .result-meta { font-size: 0.82rem; color: var(--ink-soft); margin-top: 2px; }
+.result-note { font-size: 0.8rem; font-weight: 400; color: var(--ink-soft); }
 .result-articles { margin-top: 6px; font-size: 0.85rem; }
 .result-articles a { color: var(--us-blue); }
 #col-mex .result-articles a { color: var(--mx-green); }
