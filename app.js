@@ -9,7 +9,17 @@ const WEATHER_CODES = {
 async function init() {
   const res = await fetch("data.json");
   const data = await res.json();
-  const order = Object.keys(data.teams).sort((a, b) => (data.teams[a].order || 99) - (data.teams[b].order || 99));
+  function nextKickoff(key) {
+    const upcoming = data.matches
+      .filter(m => m.team === key && !m.result)
+      .map(m => new Date(m.kickoff).getTime());
+    return upcoming.length ? Math.min(...upcoming) : Infinity;
+  }
+  const order = Object.keys(data.teams).sort((a, b) => {
+    const diff = nextKickoff(a) - nextKickoff(b);
+    if (diff !== 0) return diff;
+    return (data.teams[a].order || 99) - (data.teams[b].order || 99);
+  });
   renderMasthead(data, order);
   renderColumns(data, order);
   renderCollision(data, order);
