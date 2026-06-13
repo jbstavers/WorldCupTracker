@@ -82,10 +82,16 @@ function renderColumns(data, order) {
 
 function fmtKickoff(iso) {
   const d = new Date(iso);
-  return d.toLocaleString([], {
+  const pt = d.toLocaleString("en-US", {
     weekday: "short", month: "short", day: "numeric",
-    hour: "numeric", minute: "2-digit"
+    hour: "numeric", minute: "2-digit",
+    timeZone: "America/Los_Angeles"
   });
+  const mx = d.toLocaleString("en-US", {
+    hour: "numeric", minute: "2-digit",
+    timeZone: "America/Mexico_City"
+  });
+  return `${pt} PT / ${mx} MX`;
 }
 
 function relativeBadge(iso) {

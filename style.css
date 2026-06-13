@@ -20,6 +20,11 @@ body {
 .masthead { text-align: center; padding: 2.5rem 1rem 0; }
 .masthead h1 { font-size: clamp(1.6rem, 4.5vw, 2.8rem); font-weight: 900; letter-spacing: -0.02em; }
 .masthead .x { color: var(--gold); font-weight: 400; }
+.site-nav { margin-top: 0.6rem; }
+.site-nav a { font-size: 0.85rem; font-weight: 700; color: var(--gold); text-decoration: none; border: 1px solid var(--gold); border-radius: 999px; padding: 4px 14px; }
+.site-nav a:hover { background: var(--gold); color: #fff; }
+.site-nav a.active { background: var(--gold); color: #fff; }
+
 .masthead-stripes { display: flex; height: 6px; max-width: 280px; margin: 1.25rem auto 0; border-radius: 3px; overflow: hidden; }
 .stripe { flex: 1; }
 
@@ -109,3 +114,24 @@ body {
 @media (max-width: 900px) {
   .scarf { grid-template-columns: 1fr !important; }
 }
+
+/* Today's Games page */
+.today-main { max-width: 860px; margin: 2rem auto 0; padding: 0 1rem; }
+.today-header { margin-bottom: 1.25rem; }
+.today-header h2 { font-size: 1.3rem; font-weight: 700; color: var(--ink-soft); }
+.today-empty { font-size: 1rem; color: var(--ink-soft); font-style: italic; padding: 2rem 0; text-align: center; }
+.today-games { display: flex; flex-direction: column; gap: 1.2rem; }
+
+.game-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.game-card-header { padding: 1rem 1.2rem; color: #fff; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.game-matchup { display: flex; align-items: center; gap: 0.5rem; font-weight: 900; font-size: 1.15rem; }
+.game-vs { font-weight: 400; opacity: 0.8; font-size: 0.95rem; }
+.game-badge-row { display: flex; gap: 6px; align-items: center; }
+.badge-result { background: rgba(255,255,255,0.25); color: #fff; border: 1px solid rgba(255,255,255,0.4); }
+.badge-upcoming { background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3); }
+
+.game-card-body { padding: 1rem 1.2rem 1.2rem; display: flex; flex-direction: column; gap: 6px; }
+.game-score { font-weight: 900; font-size: 1.1rem; margin-bottom: 4px; }
+.game-when, .game-where, .game-tv, .game-weather { font-size: 0.85rem; color: var(--ink-soft); }
+.game-links { font-size: 0.82rem; margin-top: 4px; line-height: 1.7; }
+.game-links a { color: var(--gold); }

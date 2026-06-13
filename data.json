@@ -8,7 +8,7 @@
       "groupOpponents": [
         "Paraguay",
         "Australia",
-        "Turkey"
+        "Türkiye"
       ],
       "record": {
         "w": 1,
@@ -31,7 +31,7 @@
       "group": "A",
       "groupOpponents": [
         "South Africa",
-        "South Korea",
+        "Korea Republic",
         "Czechia"
       ],
       "record": {
@@ -55,7 +55,7 @@
       "group": "E",
       "groupOpponents": [
         "Curaçao",
-        "Ivory Coast",
+        "Côte d'Ivoire",
         "Ecuador"
       ],
       "record": {
@@ -205,7 +205,7 @@
     },
     {
       "team": "mex",
-      "opponent": "South Korea",
+      "opponent": "Korea Republic",
       "kickoff": "2026-06-18T18:00:00-07:00",
       "venue": "Estadio Akron",
       "city": "Guadalajara",
@@ -269,7 +269,7 @@
     },
     {
       "team": "ger",
-      "opponent": "Ivory Coast",
+      "opponent": "Côte d'Ivoire",
       "kickoff": "2026-06-20T13:00:00-07:00",
       "venue": "BMO Field",
       "city": "Toronto",
@@ -280,7 +280,7 @@
         "spanish": "Telemundo",
         "streaming": "FOX One, Peacock"
       },
-      "watchNotes": "The group's real test. Ivory Coast bring pace on the wings and Kessié's power in midfield — Germany's high line will get stretched. Watch whether Nagelsmann starts a true 9 or plays Musiala false-nine.",
+      "watchNotes": "The group's real test. Côte d'Ivoire bring pace on the wings and Kessié's power in midfield — Germany's high line will get stretched. Watch whether Nagelsmann starts a true 9 or plays Musiala false-nine.",
       "previews": [
         {
           "title": "ESPN: Group E teams and stats",
@@ -361,7 +361,7 @@
     },
     {
       "team": "usa",
-      "opponent": "Turkey",
+      "opponent": "Türkiye",
       "kickoff": "2026-06-25T19:00:00-07:00",
       "venue": "SoFi Stadium",
       "city": "Inglewood, CA",
@@ -372,7 +372,7 @@
         "spanish": "Telemundo",
         "streaming": "FOX One, Peacock, Tubi"
       },
-      "watchNotes": "Turkey have the group's most talented attackers — Arda Güler and Kenan Yıldız between the lines, Çalhanoğlu dictating tempo. The US midfield must deny central space. Could decide who wins Group D.",
+      "watchNotes": "Türkiye have the group's most talented attackers — Arda Güler and Kenan Yıldız between the lines, Çalhanoğlu dictating tempo. The US midfield must deny central space. Could decide who wins Group D.",
       "previews": [
         {
           "title": "RotoWire Group D deep dive",

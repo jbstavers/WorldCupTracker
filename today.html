@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Today's Games · World Cup 2026</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="masthead">
+    <div class="masthead-inner">
+      <h1 id="masthead-title"></h1>
+      <nav class="site-nav">
+        <a href="index.html">Overview</a>
+        <a href="today.html" class="active">Today's Games</a>
+      </nav>
+    </div>
+    <div class="masthead-stripes" id="masthead-stripes"></div>
+  </header>
+
+  <main class="today-main">
+    <div class="today-header">
+      <h2 id="today-date"></h2>
+    </div>
+    <div id="today-games" class="today-games"></div>
+  </main>
+
+  <footer class="site-footer">
+    <p>All kickoff times shown in Pacific Time / Mexico City Time · Weather from Open-Meteo · Results update automatically every few hours</p>
+  </footer>
+
+  <script>
+const WEATHER_CODES = {
+  0: "Clear", 1: "Mostly clear", 2: "Partly cloudy", 3: "Overcast",
+  45: "Fog", 48: "Fog", 51: "Light drizzle", 53: "Drizzle", 55: "Drizzle",
+  61: "Light rain", 63: "Rain", 65: "Heavy rain", 66: "Freezing rain", 67: "Freezing rain",
+  71: "Light snow", 73: "Snow", 75: "Heavy snow", 80: "Showers", 81: "Showers",
+  82: "Heavy showers", 95: "Thunderstorms", 96: "Thunderstorms", 99: "Thunderstorms"
+};
+
+function fmtKickoff(iso) {
+  const d = new Date(iso);
+  const pt = d.toLocaleString("en-US", {
+    weekday: "short", month: "short", day: "numeric",
+    hour: "numeric", minute: "2-digit",
+    timeZone: "America/Los_Angeles"
+  });
+  const mx = d.toLocaleString("en-US", {
+    hour: "numeric", minute: "2-digit",
+    timeZone: "America/Mexico_City"
+  });
+  return `${pt} PT / ${mx} MX`;
+}
+
+function fmtTimeOnly(iso, tz) {
+  return new Date(iso).toLocaleString("en-US", {
+    hour: "numeric", minute: "2-digit", timeZone: tz
+  });
+}
+
+async function init() {
+  const res = await fetch("data.json");
+  const data = await res.json();
+
+  // Render masthead
+  const order = Object.keys(data.teams).sort((a, b) => (data.teams[a].order || 99) - (data.teams[b].order || 99));
+  document.getElementById("masthead-title").innerHTML =
+    order.map(k => data.teams[k].name).join(' <span class="x">×</span> ');
+  const stripes = document.getElementById("masthead-stripes");
+  for (const k of order) {
+    const c = data.teams[k].colors;
+    for (const color of [c.banner, c.trim]) {
+      const s = document.createElement("span");
+      s.className = "stripe";
+      s.style.background = color;
+      stripes.appendChild(s);
+    }
+  }
+
+  // Determine today in PT
+  const todayPT = new Date().toLocaleDateString("en-US", { timeZone: "America/Los_Angeles" });
+  const todayLabel = new Date().toLocaleDateString("en-US", {
+    weekday: "long", month: "long", day: "numeric", year: "numeric",
+    timeZone: "America/Los_Angeles"
+  });
+  document.getElementById("today-date").textContent = todayLabel;
+
+  // Filter matches for today (in PT), deduplicate by espnId
+  const seen = new Set();
+  const todayMatches = [];
+  for (const m of data.matches) {
+    const kickoffPT = new Date(m.kickoff).toLocaleDateString("en-US", { timeZone: "America/Los_Angeles" });
+    if (kickoffPT !== todayPT) continue;
+    if (m.espnId && seen.has(m.espnId)) continue;
+    if (m.espnId) seen.add(m.espnId);
+    todayMatches.push({ match: m, team: data.teams[m.team] });
+  }
+
+  todayMatches.sort((a, b) => new Date(a.match.kickoff) - new Date(b.match.kickoff));
+
+  const container = document.getElementById("today-games");
+  if (!todayMatches.length) {
+    container.innerHTML = `<p class="today-empty">No World Cup matches scheduled today. Check back tomorrow!</p>`;
+    return;
+  }
+
+  for (const { match: m, team: t } of todayMatches) {
+    container.appendChild(gameCard(m, t));
+  }
+
+  fetchWeather(todayMatches.map(x => x.match));
+}
+
+function gameCard(m, t) {
+  const card = document.createElement("div");
+  card.className = "game-card";
+
+  const isResult = !!m.result;
+  let scoreHtml = "";
+  if (isResult) {
+    const r = m.result;
+    const outcome = r.us > r.them ? "win" : r.us < r.them ? "loss" : "draw";
+    scoreHtml = `<div class="game-score"><span class="${outcome}">${t.shortName} ${r.us}–${r.them}</span> ${m.opponent}${r.note ? ` <span class="result-note">(${r.note})</span>` : ""}</div>`;
+  }
+
+  const stageHtml = m.stage ? `<span class="stage-tag">${m.stage}</span>` : "";
+  const weatherId = (!isResult && m.lat != null) ? `${m.kickoff}|${m.lat}|${m.lon}` : null;
+
+  const links = isResult
+    ? (m.articles || []).map(a => `<a href="${a.url}" target="_blank" rel="noopener">${a.title}</a>`).join(" · ")
+    : (m.previews || []).map(p => `<a href="${p.url}" target="_blank" rel="noopener">${p.title}</a>`).join(" · ");
+
+  card.innerHTML = `
+    <div class="game-card-header" style="background:${t.colors.banner};border-bottom:4px solid ${t.colors.trim}">
+      <div class="game-matchup">
+        <span class="game-team">${t.name}</span>
+        <span class="game-vs">vs</span>
+        <span class="game-opp">${m.opponent}</span>
+      </div>
+      <div class="game-badge-row">${stageHtml}${isResult ? '<span class="badge badge-result">Final</span>' : '<span class="badge badge-upcoming">Upcoming</span>'}</div>
+    </div>
+    <div class="game-card-body">
+      ${scoreHtml}
+      <div class="game-when"><span class="ico">🕐</span> ${fmtKickoff(m.kickoff)}</div>
+      <div class="game-where"><span class="ico">📍</span> ${m.venue}${m.city ? ", " + m.city : ""}</div>
+      <div class="game-tv"><span class="ico">📺</span> ${m.tv.english} (Eng) · ${m.tv.spanish} (Esp) · <span class="ico">▶</span> ${m.tv.streaming}</div>
+      ${weatherId ? `<div class="game-weather"><span class="weather" data-id="${weatherId}"><span class="ico">☁</span> Loading forecast…</span></div>` : ""}
+      ${m.watchNotes ? `<p class="watch-notes">${m.watchNotes}</p>` : ""}
+      ${links ? `<div class="game-links"><span class="preview-label">${isResult ? "Reports:" : "Previews:"}</span> ${links}</div>` : ""}
+    </div>`;
+  return card;
+}
+
+async function fetchWeather(matches) {
+  const upcoming = matches.filter(m => !m.result && m.lat != null);
+  for (const m of upcoming) {
+    const el = document.querySelector(`.weather[data-id="${m.kickoff}|${m.lat}|${m.lon}"]`);
+    if (!el) continue;
+    const kickoff = new Date(m.kickoff);
+    const daysOut = (kickoff - new Date()) / 86400000;
+    if (daysOut > 15) {
+      el.innerHTML = `<span class="ico">☁</span> Forecast available closer to kickoff`;
+      continue;
+    }
+    try {
+      const dateStr = m.kickoff.slice(0, 10);
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${m.lat}&longitude=${m.lon}` +
+        `&hourly=temperature_2m,weather_code,precipitation_probability` +
+        `&temperature_unit=fahrenheit&timezone=auto&start_date=${dateStr}&end_date=${dateStr}`;
+      const resp = await fetch(url);
+      const w = await resp.json();
+      const hourLocal = new Date(kickoff.toLocaleString("en-US", { timeZone: w.timezone })).getHours();
+      const i = Math.min(hourLocal, w.hourly.time.length - 1);
+      const temp = Math.round(w.hourly.temperature_2m[i]);
+      const cond = WEATHER_CODES[w.hourly.weather_code[i]] || "—";
+      const rain = w.hourly.precipitation_probability ? w.hourly.precipitation_probability[i] : null;
+      el.innerHTML = `<span class="ico">☁</span> ${temp}°F, ${cond}` + (rain != null ? ` · ${rain}% rain` : "");
+    } catch {
+      el.innerHTML = `<span class="ico">☁</span> Forecast unavailable`;
+    }
+  }
+}
+
+init();
+  </script>
+</body>
+</html>
