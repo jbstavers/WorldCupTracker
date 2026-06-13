@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-11 21:55 UTC",
+  "updated": "2026-06-13 17:27 UTC",
   "teams": {
     "usa": {
       "name": "United States",
@@ -11,11 +11,11 @@
         "Turkey"
       ],
       "record": {
-        "w": 0,
+        "w": 1,
         "d": 0,
         "l": 0,
-        "gf": 0,
-        "ga": 0
+        "gf": 4,
+        "ga": 1
       },
       "order": 2,
       "colors": {
@@ -151,8 +151,24 @@
           "url": "https://www.rotowire.com/soccer/article/usa-vs-paraguay-preview-predicted-lineups-team-news-tactical-analysis-2026-world-cup-group-d-117529"
         }
       ],
-      "result": null,
-      "articles": [],
+      "result": {
+        "us": 4,
+        "them": 1
+      },
+      "articles": [
+        {
+          "title": "FOX Sports: United States vs Paraguay Highlights | 2026 FIFA World Cup™ - FOX Sports",
+          "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTFB0MlRoSUZ4MHNWMnRqOUh1d0t1eXJCS1BwTWp1ZWJZN3dURzc0UFhmNnZheEEwR0Zfa1l1bkZ4c3dIbVhCMWNOeEFrU1VtWDdIN0NXV0NVUXNsa3hxTHNmakxn?oc=5"
+        },
+        {
+          "title": "Los Angeles Times: World Cup recap: U.S. defeats Paraguay with dominant offensive display - Los Angeles Times",
+          "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOT1czY0lrdTFuaW5SSUZBWW5Jd0NidWtZTjZ1VjlmVHBPRU9mY2FiQkduNWlCcXY2OTJCUVI1SDhJNGtWS3FucElCTE9CQnFzaW10TENteEZQN1NXMUQwVDV5ME56YVhhRmVDWGtOemlxWERnQTJ5bHJhZUNGZmpyUWhiR2VYTUtfZzVWZ3c1OUJqeHRPLUhWbGxB?oc=5"
+        },
+        {
+          "title": "US Soccer: USMNT vs. Paraguay: Match Recap & Highlights | FIFA World Cup 2026 - US Soccer",
+          "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPdWZrWDNlUDAxUENjSy00eURWQ201S3A1c1p2dU16aDBLb1lVYnA3SG5ncW9YRlFPc1JIb0NsR2dreWVaSU43ZGZfcGRITzNwV2U1a2h0eTFoTzZhOHJScDl3T1FLUXZ0ZzJXYlBjYndGdXRFVy13YnhDYVZqYlJUZVdmOGhybHZhXzJpQ19Zb2xRS2U5bko4WFBJT3p3VUtzdmhFYUF3?oc=5"
+        }
+      ],
       "espnId": "760417"
     },
     {
