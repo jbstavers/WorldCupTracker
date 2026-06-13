@@ -43,6 +43,8 @@ const WEATHER_CODES = {
   82: "Heavy showers", 95: "Thunderstorms", 96: "Thunderstorms", 99: "Thunderstorms"
 };
 
+const TRACKED_ABBR = { USA: "usa", MEX: "mex", GER: "ger" };
+
 function fmtKickoff(iso) {
   const d = new Date(iso);
   const pt = d.toLocaleString("en-US", {
@@ -57,15 +59,19 @@ function fmtKickoff(iso) {
   return `${pt} PT / ${mx} MX`;
 }
 
-function fmtTimeOnly(iso, tz) {
-  return new Date(iso).toLocaleString("en-US", {
-    hour: "numeric", minute: "2-digit", timeZone: tz
-  });
+function todayESPN() {
+  // YYYYMMDD in Pacific Time
+  return new Date().toLocaleDateString("en-CA", { timeZone: "America/Los_Angeles" }).replace(/-/g, "");
 }
 
 async function init() {
-  const res = await fetch("data.json");
-  const data = await res.json();
+  // Load data.json and ESPN scoreboard in parallel
+  const [dataRes, espnRes] = await Promise.all([
+    fetch("data.json"),
+    fetch(`https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=${todayESPN()}`)
+  ]);
+  const data = await dataRes.json();
+  const espn = await espnRes.json();
 
   // Render masthead
   const order = Object.keys(data.teams).sort((a, b) => (data.teams[a].order || 99) - (data.teams[b].order || 99));
@@ -82,88 +88,147 @@ async function init() {
     }
   }
 
-  // Determine today in PT
-  const todayPT = new Date().toLocaleDateString("en-US", { timeZone: "America/Los_Angeles" });
-  const todayLabel = new Date().toLocaleDateString("en-US", {
+  // Date heading
+  document.getElementById("today-date").textContent = new Date().toLocaleDateString("en-US", {
     weekday: "long", month: "long", day: "numeric", year: "numeric",
     timeZone: "America/Los_Angeles"
   });
-  document.getElementById("today-date").textContent = todayLabel;
 
-  // Filter matches for today (in PT), deduplicate by espnId
-  const seen = new Set();
-  const todayMatches = [];
+  // Build espnId -> data.json match lookup
+  const matchByEspnId = {};
   for (const m of data.matches) {
-    const kickoffPT = new Date(m.kickoff).toLocaleDateString("en-US", { timeZone: "America/Los_Angeles" });
-    if (kickoffPT !== todayPT) continue;
-    if (m.espnId && seen.has(m.espnId)) continue;
-    if (m.espnId) seen.add(m.espnId);
-    todayMatches.push({ match: m, team: data.teams[m.team] });
+    if (m.espnId) matchByEspnId[m.espnId] = m;
   }
 
-  todayMatches.sort((a, b) => new Date(a.match.kickoff) - new Date(b.match.kickoff));
-
+  const events = espn.events || [];
   const container = document.getElementById("today-games");
-  if (!todayMatches.length) {
-    container.innerHTML = `<p class="today-empty">No World Cup matches scheduled today. Check back tomorrow!</p>`;
+
+  if (!events.length) {
+    container.innerHTML = `<p class="today-empty">No World Cup matches scheduled today.</p>`;
     return;
   }
 
-  for (const { match: m, team: t } of todayMatches) {
-    container.appendChild(gameCard(m, t));
-  }
+  const weatherTargets = [];
 
-  fetchWeather(todayMatches.map(x => x.match));
-}
+  for (const event of events) {
+    const comp = event.competitions?.[0];
+    if (!comp) continue;
 
-function gameCard(m, t) {
-  const card = document.createElement("div");
-  card.className = "game-card";
+    const competitors = comp.competitors || [];
+    const [home, away] = competitors.length === 2
+      ? [competitors.find(c => c.homeAway === "home") || competitors[0],
+         competitors.find(c => c.homeAway === "away") || competitors[1]]
+      : [competitors[0], competitors[1]];
 
-  const isResult = !!m.result;
-  let scoreHtml = "";
-  if (isResult) {
-    const r = m.result;
-    const outcome = r.us > r.them ? "win" : r.us < r.them ? "loss" : "draw";
-    scoreHtml = `<div class="game-score"><span class="${outcome}">${t.shortName} ${r.us}–${r.them}</span> ${m.opponent}${r.note ? ` <span class="result-note">(${r.note})</span>` : ""}</div>`;
-  }
+    // Find if a tracked team is playing
+    let trackedKey = null;
+    let trackedIsHome = false;
+    for (const c of competitors) {
+      const abbr = c.team?.abbreviation;
+      if (TRACKED_ABBR[abbr]) {
+        trackedKey = TRACKED_ABBR[abbr];
+        trackedIsHome = c.homeAway === "home";
+        break;
+      }
+    }
 
-  const stageHtml = m.stage ? `<span class="stage-tag">${m.stage}</span>` : "";
-  const weatherId = (!isResult && m.lat != null) ? `${m.kickoff}|${m.lat}|${m.lon}` : null;
+    const localMatch = matchByEspnId[event.id] || null;
+    const teamData = trackedKey ? data.teams[trackedKey] : null;
 
-  const links = isResult
-    ? (m.articles || []).map(a => `<a href="${a.url}" target="_blank" rel="noopener">${a.title}</a>`).join(" · ")
-    : (m.previews || []).map(p => `<a href="${p.url}" target="_blank" rel="noopener">${p.title}</a>`).join(" · ");
+    const statusName = event.status?.type?.name || "";
+    const isFinal = statusName === "STATUS_FINAL";
+    const isLive = statusName === "STATUS_IN_PROGRESS" || statusName === "STATUS_HALFTIME";
+    const kickoffISO = event.date; // UTC
 
-  card.innerHTML = `
-    <div class="game-card-header" style="background:${t.colors.banner};border-bottom:4px solid ${t.colors.trim}">
-      <div class="game-matchup">
-        <span class="game-team">${t.name}</span>
-        <span class="game-vs">vs</span>
-        <span class="game-opp">${m.opponent}</span>
+    // Score
+    let scoreHtml = "";
+    if (isFinal || isLive) {
+      const homeScore = home?.score ?? "–";
+      const awayScore = away?.score ?? "–";
+      const detail = event.status?.type?.shortDetail || (isFinal ? "FT" : "Live");
+      scoreHtml = `<div class="game-score">${home?.team?.displayName || "?"} <strong>${homeScore}–${awayScore}</strong> ${away?.team?.displayName || "?"} <span class="score-detail">${detail}</span></div>`;
+    }
+
+    // TV — use data.json if tracked, else parse ESPN broadcasts
+    let tvHtml = "";
+    if (localMatch?.tv) {
+      const tv = localMatch.tv;
+      tvHtml = `<div class="game-tv"><span class="ico">📺</span> ${tv.english} (Eng) · ${tv.spanish} (Esp) · <span class="ico">▶</span> ${tv.streaming}</div>`;
+    } else {
+      const broadcastNames = (comp.broadcasts || []).flatMap(b => b.names || []).join(", ");
+      if (broadcastNames) tvHtml = `<div class="game-tv"><span class="ico">📺</span> ${broadcastNames}</div>`;
+    }
+
+    // Venue
+    const venueName = comp.venue?.fullName || "";
+    const venueCity = [comp.venue?.address?.city, comp.venue?.address?.state].filter(Boolean).join(", ");
+    const venueHtml = venueName
+      ? `<div class="game-where"><span class="ico">📍</span> ${venueName}${venueCity ? ", " + venueCity : ""}</div>`
+      : "";
+
+    // Weather — only for upcoming tracked matches with coords
+    let weatherHtml = "";
+    if (!isFinal && !isLive && localMatch?.lat != null) {
+      const wid = `${kickoffISO}|${localMatch.lat}|${localMatch.lon}`;
+      weatherHtml = `<div class="game-weather"><span class="weather" data-id="${wid}"><span class="ico">☁</span> Loading forecast…</span></div>`;
+      weatherTargets.push(localMatch);
+    }
+
+    // watchNotes + links
+    const watchNotesHtml = localMatch?.watchNotes
+      ? `<p class="watch-notes">${localMatch.watchNotes}</p>` : "";
+
+    const linkItems = isFinal
+      ? (localMatch?.articles || [])
+      : (localMatch?.previews || []);
+    const linksHtml = linkItems.length
+      ? `<div class="game-links"><span class="preview-label">${isFinal ? "Reports:" : "Previews:"}</span> ${linkItems.map(l => `<a href="${l.url}" target="_blank" rel="noopener">${l.title}</a>`).join(" · ")}</div>`
+      : "";
+
+    // Stage tag
+    const stage = localMatch?.stage || event.season?.slug || "";
+    const stageHtml = stage ? `<span class="stage-tag">${stage}</span>` : "";
+
+    // Badge
+    const badgeClass = isFinal ? "badge-result" : isLive ? "badge-live" : "badge-upcoming";
+    const badgeText = isFinal ? "Final" : isLive ? (event.status?.type?.shortDetail || "Live") : "Upcoming";
+
+    // Header colors — use tracked team colors if available, else neutral
+    const bannerColor = teamData ? teamData.colors.banner : "#1A1A1A";
+    const trimColor = teamData ? teamData.colors.trim : "#555";
+
+    const card = document.createElement("div");
+    card.className = "game-card" + (trackedKey ? " game-card-tracked" : "");
+    card.innerHTML = `
+      <div class="game-card-header" style="background:${bannerColor};border-bottom:4px solid ${trimColor}">
+        <div class="game-matchup">
+          <span class="game-team">${home?.team?.displayName || "?"}</span>
+          <span class="game-vs">vs</span>
+          <span class="game-opp">${away?.team?.displayName || "?"}</span>
+        </div>
+        <div class="game-badge-row">${stageHtml}<span class="badge ${badgeClass}">${badgeText}</span></div>
       </div>
-      <div class="game-badge-row">${stageHtml}${isResult ? '<span class="badge badge-result">Final</span>' : '<span class="badge badge-upcoming">Upcoming</span>'}</div>
-    </div>
-    <div class="game-card-body">
-      ${scoreHtml}
-      <div class="game-when"><span class="ico">🕐</span> ${fmtKickoff(m.kickoff)}</div>
-      <div class="game-where"><span class="ico">📍</span> ${m.venue}${m.city ? ", " + m.city : ""}</div>
-      <div class="game-tv"><span class="ico">📺</span> ${m.tv.english} (Eng) · ${m.tv.spanish} (Esp) · <span class="ico">▶</span> ${m.tv.streaming}</div>
-      ${weatherId ? `<div class="game-weather"><span class="weather" data-id="${weatherId}"><span class="ico">☁</span> Loading forecast…</span></div>` : ""}
-      ${m.watchNotes ? `<p class="watch-notes">${m.watchNotes}</p>` : ""}
-      ${links ? `<div class="game-links"><span class="preview-label">${isResult ? "Reports:" : "Previews:"}</span> ${links}</div>` : ""}
-    </div>`;
-  return card;
+      <div class="game-card-body">
+        ${scoreHtml}
+        ${!isFinal ? `<div class="game-when"><span class="ico">🕐</span> ${fmtKickoff(kickoffISO)}</div>` : ""}
+        ${venueHtml}
+        ${tvHtml}
+        ${weatherHtml}
+        ${watchNotesHtml}
+        ${linksHtml}
+      </div>`;
+    container.appendChild(card);
+  }
+
+  fetchWeather(weatherTargets);
 }
 
 async function fetchWeather(matches) {
-  const upcoming = matches.filter(m => !m.result && m.lat != null);
-  for (const m of upcoming) {
+  for (const m of matches) {
     const el = document.querySelector(`.weather[data-id="${m.kickoff}|${m.lat}|${m.lon}"]`);
     if (!el) continue;
     const kickoff = new Date(m.kickoff);
-    const daysOut = (kickoff - new Date()) / 86400000;
-    if (daysOut > 15) {
+    if ((kickoff - new Date()) / 86400000 > 15) {
       el.innerHTML = `<span class="ico">☁</span> Forecast available closer to kickoff`;
       continue;
     }
@@ -178,7 +243,7 @@ async function fetchWeather(matches) {
       const i = Math.min(hourLocal, w.hourly.time.length - 1);
       const temp = Math.round(w.hourly.temperature_2m[i]);
       const cond = WEATHER_CODES[w.hourly.weather_code[i]] || "—";
-      const rain = w.hourly.precipitation_probability ? w.hourly.precipitation_probability[i] : null;
+      const rain = w.hourly.precipitation_probability?.[i];
       el.innerHTML = `<span class="ico">☁</span> ${temp}°F, ${cond}` + (rain != null ? ` · ${rain}% rain` : "");
     } catch {
       el.innerHTML = `<span class="ico">☁</span> Forecast unavailable`;

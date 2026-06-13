@@ -129,9 +129,12 @@ body {
 .game-badge-row { display: flex; gap: 6px; align-items: center; }
 .badge-result { background: rgba(255,255,255,0.25); color: #fff; border: 1px solid rgba(255,255,255,0.4); }
 .badge-upcoming { background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3); }
+.badge-live { background: #C62828; color: #fff; border: 1px solid #C62828; animation: pulse 1.5s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.65; } }
 
 .game-card-body { padding: 1rem 1.2rem 1.2rem; display: flex; flex-direction: column; gap: 6px; }
 .game-score { font-weight: 900; font-size: 1.1rem; margin-bottom: 4px; }
 .game-when, .game-where, .game-tv, .game-weather { font-size: 0.85rem; color: var(--ink-soft); }
+.score-detail { font-size: 0.8rem; font-weight: 400; color: var(--ink-soft); margin-left: 4px; }
 .game-links { font-size: 0.82rem; margin-top: 4px; line-height: 1.7; }
 .game-links a { color: var(--gold); }
