@@ -24,6 +24,17 @@ TOURNAMENT_END = "20260719"
 # (with name, group, colors, order) — fixtures and results then flow in.
 TEAM_ABBR = {"usa": "USA", "mex": "MEX", "ger": "GER"}
 
+# football-data.org is the results source (ESPN's JSON API serves stale
+# scorelines). Fixtures still come from ESPN below.
+FOOTBALL_DATA_TOKEN = "0def0cbd236d4dfeafc8701aaa44672c"
+FD_MATCHES = ("https://api.football-data.org/v4/competitions/WC/matches"
+              "?dateFrom={lo}&dateTo={hi}")
+FD_TEAM_NAMES = {
+    "usa": {"united states", "usa", "united states of america"},
+    "mex": {"mexico", "méxico"},
+    "ger": {"germany", "deutschland"},
+}
+
 VENUES = {
     "Estadio Banorte": ("Estadio Azteca", "Mexico City", 19.3029, -99.1505),
     "Estadio Azteca": ("Estadio Azteca", "Mexico City", 19.3029, -99.1505),
@@ -209,6 +220,58 @@ def recompute_records(data):
         data["teams"][key]["record"] = {"w": w, "d": d, "l": l, "gf": gf, "ga": ga}
 
 
+def fetch_fd_matches(lo, hi):
+    req = urllib.request.Request(
+        FD_MATCHES.format(lo=lo, hi=hi),
+        headers={"X-Auth-Token": FOOTBALL_DATA_TOKEN,
+                 "User-Agent": "WorldCupTracker/1.0"},
+    )
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        return json.loads(resp.read()).get("matches", [])
+
+
+def find_fd_match(fd_matches, m):
+    """football-data match for a tracked data.json fixture, or None."""
+    names = FD_TEAM_NAMES.get(m["team"], set())
+    kickoff = datetime.fromisoformat(m["kickoff"])
+    for fm in fd_matches:
+        home = ((fm.get("homeTeam") or {}).get("name") or "").lower()
+        away = ((fm.get("awayTeam") or {}).get("name") or "").lower()
+        if home not in names and away not in names:
+            continue
+        fd_dt = datetime.fromisoformat(fm["utcDate"].replace("Z", "+00:00"))
+        if abs((fd_dt - kickoff).total_seconds()) <= 6 * 3600:
+            return fm
+    return None
+
+
+def apply_result_fd(m, fm, data):
+    names = FD_TEAM_NAMES.get(m["team"], set())
+    home = ((fm.get("homeTeam") or {}).get("name") or "").lower()
+    score = fm.get("score") or {}
+    ft = score.get("fullTime") or {}
+    home_goals, away_goals = ft.get("home"), ft.get("away")
+    if home_goals is None or away_goals is None:
+        return False
+    we_are_home = home in names
+    us = home_goals if we_are_home else away_goals
+    them = away_goals if we_are_home else home_goals
+    m["result"] = {"us": us, "them": them}
+    pens = score.get("penalties") or {}
+    if score.get("duration") == "PENALTIES" and pens.get("home") is not None:
+        ph, pa = pens["home"], pens["away"]
+        us_p, them_p = (ph, pa) if we_are_home else (pa, ph)
+        m["result"]["note"] = f"{us_p}–{them_p} on penalties"
+    team_name = data["teams"][m["team"]]["name"]
+    articles = fetch_news_articles(f"{team_name} {m['opponent']} World Cup recap")
+    if not articles and m.get("espnId"):
+        articles = [{"title": "ESPN match report",
+                     "url": f"https://www.espn.com/soccer/match/_/gameId/{m['espnId']}"}]
+    m["articles"] = articles
+    print(f"Result: {m['team'].upper()} {us}-{them} {m['opponent']}")
+    return True
+
+
 def main():
     original = DATA_PATH.read_text()
     data = json.loads(original)
@@ -226,31 +289,29 @@ def main():
     except Exception as e:
         print(f"Fixture discovery failed: {e}", file=sys.stderr)
 
-    # 2. Results for any match past kickoff (ESPN's `completed` flag is
-    #    the gate against recording a result early)
-    pending_dates = set()
-    for m in data["matches"]:
-        if m.get("result"):
-            continue
-        kickoff = datetime.fromisoformat(m["kickoff"])
-        if now > kickoff:
-            d = kickoff.astimezone(timezone.utc).strftime("%Y%m%d")
-            pending_dates.add(d)
-            pending_dates.add((kickoff + timedelta(days=1)).strftime("%Y%m%d"))
-
-    for dates in sorted(pending_dates):
+    # 2. Results from football-data.org for any tracked match past kickoff.
+    pending = [m for m in data["matches"]
+               if not m.get("result")
+               and now > datetime.fromisoformat(m["kickoff"])]
+    if pending:
+        kicks = [datetime.fromisoformat(m["kickoff"]).astimezone(timezone.utc)
+                 for m in pending]
+        lo = (min(kicks) - timedelta(days=1)).strftime("%Y-%m-%d")
+        hi = (max(kicks) + timedelta(days=1)).strftime("%Y-%m-%d")
         try:
-            board = fetch_scoreboard(dates)
+            fd_matches = fetch_fd_matches(lo, hi)
         except Exception as e:
-            print(f"Scoreboard fetch failed ({dates}): {e}", file=sys.stderr)
-            continue
-        for event in board.get("events", []):
-            m = match_event(data, event)
-            if m is not None and not m.get("result"):
-                status = event["competitions"][0]["status"]["type"]
-                if not apply_result(m, event, data):
-                    print(f"Not final yet: {m['team'].upper()} vs {m['opponent']} "
-                          f"— ESPN status {status.get('name')} ({status.get('detail')})")
+            print(f"football-data fetch failed: {e}", file=sys.stderr)
+            fd_matches = []
+        for m in pending:
+            fm = find_fd_match(fd_matches, m)
+            if fm is None:
+                print(f"No FD match found: {m['team'].upper()} vs {m['opponent']}")
+            elif fm.get("status") != "FINISHED":
+                print(f"Not final yet: {m['team'].upper()} vs {m['opponent']} "
+                      f"— FD status {fm.get('status')}")
+            else:
+                apply_result_fd(m, fm, data)
 
     recompute_records(data)
     data["matches"].sort(key=lambda m: m["kickoff"])
