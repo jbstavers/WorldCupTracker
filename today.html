@@ -136,16 +136,29 @@ async function init() {
     const teamData = trackedKey ? data.teams[trackedKey] : null;
 
     const statusName = event.status?.type?.name || "";
-    const isFinal = statusName === "STATUS_FINAL";
-    const isLive = statusName === "STATUS_IN_PROGRESS" || statusName === "STATUS_HALFTIME";
+    const espnConfirmsFinal = statusName === "STATUS_FINAL";
+    const hasLocalResult = localMatch?.result != null;
+    const isFinal = espnConfirmsFinal || hasLocalResult;
+    const isLive = !isFinal && (statusName === "STATUS_IN_PROGRESS" || statusName === "STATUS_HALFTIME");
     const kickoffISO = event.date; // UTC
 
     // Score
     let scoreHtml = "";
     if (isFinal || isLive) {
-      const homeScore = home?.score ?? "–";
-      const awayScore = away?.score ?? "–";
-      const detail = event.status?.type?.shortDetail || (isFinal ? "FT" : "Live");
+      let homeScore, awayScore;
+      if (hasLocalResult && !espnConfirmsFinal) {
+        // ESPN data is stale — reconstruct score from data.json result
+        const us = localMatch.result.us;
+        const them = localMatch.result.them;
+        homeScore = trackedIsHome ? us : them;
+        awayScore = trackedIsHome ? them : us;
+      } else {
+        homeScore = home?.score ?? "–";
+        awayScore = away?.score ?? "–";
+      }
+      const detail = espnConfirmsFinal
+        ? (event.status?.type?.shortDetail || "FT")
+        : isLive ? (event.status?.type?.shortDetail || "Live") : "FT";
       scoreHtml = `<div class="game-score">${home?.team?.displayName || "?"} <strong>${homeScore}–${awayScore}</strong> ${away?.team?.displayName || "?"} <span class="score-detail">${detail}</span></div>`;
     }
 
