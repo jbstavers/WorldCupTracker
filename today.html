@@ -43,8 +43,6 @@ const WEATHER_CODES = {
   82: "Heavy showers", 95: "Thunderstorms", 96: "Thunderstorms", 99: "Thunderstorms"
 };
 
-const TRACKED_ABBR = { USA: "usa", MEX: "mex", GER: "ger" };
-
 function fmtKickoff(iso) {
   const d = new Date(iso);
   const pt = d.toLocaleString("en-US", {
@@ -59,14 +57,7 @@ function fmtKickoff(iso) {
   return `${pt} PT / ${mx} MX`;
 }
 
-function todayESPN() {
-  // YYYYMMDD in Pacific Time
-  return new Date().toLocaleDateString("en-CA", { timeZone: "America/Los_Angeles" }).replace(/-/g, "");
-}
-
 async function init() {
-  // data.json is the authoritative source for tracked game status and scores.
-  // ESPN scoreboard is optional — silently skipped if unavailable or stale.
   const dataRes = await fetch("data.json");
   const data = await dataRes.json();
 
@@ -85,88 +76,38 @@ async function init() {
     }
   }
 
-  // Date heading
   document.getElementById("today-date").textContent = new Date().toLocaleDateString("en-US", {
     weekday: "long", month: "long", day: "numeric", year: "numeric",
     timeZone: "America/Los_Angeles"
   });
 
-  // Optional: ESPN scoreboard for non-tracked games and live scores
-  const espnEventById = {};
-  try {
-    const espnRes = await fetch(`https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=${todayESPN()}`);
-    const espn = await espnRes.json();
-    for (const ev of (espn.events || [])) espnEventById[ev.id] = ev;
-  } catch {
-    // ESPN unavailable — tracked games still render correctly from data.json
-  }
-
-  // Today's tracked matches from data.json (compare kickoff date in PT)
+  // Filter data.json matches to those with a kickoff date matching today (PT)
   const todayPT = new Date().toLocaleDateString("en-CA", { timeZone: "America/Los_Angeles" });
   const todayMatches = data.matches.filter(m =>
     new Date(m.kickoff).toLocaleDateString("en-CA", { timeZone: "America/Los_Angeles" }) === todayPT
   );
 
-  // Non-tracked ESPN events (any WC game today not covered by data.json)
-  const trackedIds = new Set(todayMatches.map(m => m.espnId).filter(Boolean));
-  const extraEvents = Object.values(espnEventById).filter(ev => !trackedIds.has(ev.id));
-
   const container = document.getElementById("today-games");
-  if (!todayMatches.length && !extraEvents.length) {
-    container.innerHTML = `<p class="today-empty">No World Cup matches scheduled today.</p>`;
+  if (!todayMatches.length) {
+    container.innerHTML = `<p class="today-empty">No tracked matches scheduled today.</p>`;
     return;
   }
 
   const now = new Date();
   const weatherTargets = [];
 
-  // ── Tracked team matches (from data.json) ──
   for (const m of todayMatches) {
-    const espnEvent = m.espnId ? espnEventById[m.espnId] : null;
     const teamData = data.teams[m.team];
     const kickoff = new Date(m.kickoff);
 
-    // data.json result is authoritative for Final; ESPN is a bonus for live status
     const isFinal = m.result != null;
-    const espnStatus = espnEvent?.status?.type?.name || "";
-    const espnIsLive = espnStatus === "STATUS_IN_PROGRESS" || espnStatus === "STATUS_HALFTIME";
-    const isLive = !isFinal && (espnIsLive || kickoff <= now);
+    const isLive = !isFinal && kickoff <= now;
 
-    // Resolve display names and scores
-    let homeName = teamData.name;
-    let awayName = m.opponent;
-    let homeScore, awayScore;
-
-    if (espnEvent) {
-      const comp = espnEvent.competitions?.[0];
-      const competitors = comp?.competitors || [];
-      const homeComp = competitors.find(c => c.homeAway === "home") || competitors[0];
-      const awayComp = competitors.find(c => c.homeAway === "away") || competitors[1];
-      if (homeComp?.team?.displayName) homeName = homeComp.team.displayName;
-      if (awayComp?.team?.displayName) awayName = awayComp.team.displayName;
-
-      if (isFinal) {
-        const trackedAbbr = { usa: "USA", mex: "MEX", ger: "GER" }[m.team];
-        const trackedIsHome = competitors.find(c => c.team?.abbreviation === trackedAbbr)?.homeAway === "home";
-        homeScore = trackedIsHome ? m.result.us : m.result.them;
-        awayScore = trackedIsHome ? m.result.them : m.result.us;
-      } else if (espnIsLive) {
-        homeScore = homeComp?.score ?? "–";
-        awayScore = awayComp?.score ?? "–";
-      }
-    } else if (isFinal) {
-      homeScore = m.result.us;
-      awayScore = m.result.them;
-    }
-
-    // Score HTML
+    // Score
     let scoreHtml = "";
     if (isFinal) {
       const note = m.result.note ? ` <span class="score-detail">(${m.result.note})</span>` : "";
-      scoreHtml = `<div class="game-score">${homeName} <strong>${homeScore}–${awayScore}</strong> ${awayName}${note} <span class="score-detail">FT</span></div>`;
-    } else if (espnIsLive) {
-      const detail = espnEvent?.status?.type?.shortDetail || "Live";
-      scoreHtml = `<div class="game-score">${homeName} <strong>${homeScore ?? "–"}–${awayScore ?? "–"}</strong> ${awayName} <span class="score-detail">${detail}</span></div>`;
+      scoreHtml = `<div class="game-score">${teamData.name} <strong>${m.result.us}–${m.result.them}</strong> ${m.opponent}${note} <span class="score-detail">FT</span></div>`;
     }
 
     // TV
@@ -175,13 +116,11 @@ async function init() {
       : "";
 
     // Venue
-    const venueName = m.venue || espnEvent?.competitions?.[0]?.venue?.fullName || "";
-    const venueCity = m.city || "";
-    const venueHtml = venueName
-      ? `<div class="game-where"><span class="ico">📍</span> ${venueName}${venueCity ? ", " + venueCity : ""}</div>`
+    const venueHtml = m.venue
+      ? `<div class="game-where"><span class="ico">📍</span> ${m.venue}${m.city ? ", " + m.city : ""}</div>`
       : "";
 
-    // Weather (upcoming tracked matches with coords only)
+    // Weather (upcoming matches with coords only)
     let weatherHtml = "";
     if (!isFinal && !isLive && m.lat != null) {
       const wid = `${m.kickoff}|${m.lat}|${m.lon}`;
@@ -196,22 +135,19 @@ async function init() {
       ? `<div class="game-links"><span class="preview-label">${isFinal ? "Reports:" : "Previews:"}</span> ${linkItems.map(l => `<a href="${l.url}" target="_blank" rel="noopener">${l.title}</a>`).join(" · ")}</div>`
       : "";
 
-    // Stage
-    const stage = m.stage || espnEvent?.season?.slug || "";
-    const stageHtml = stage ? `<span class="stage-tag">${stage}</span>` : "";
-
-    // Badge
+    // Stage + badge
+    const stageHtml = m.stage ? `<span class="stage-tag">${m.stage}</span>` : "";
     const badgeClass = isFinal ? "badge-result" : isLive ? "badge-live" : "badge-upcoming";
-    const badgeText = isFinal ? "Final" : isLive ? (espnEvent?.status?.type?.shortDetail || "Live") : "Upcoming";
+    const badgeText = isFinal ? "Final" : isLive ? "Live" : "Upcoming";
 
     const card = document.createElement("div");
     card.className = "game-card game-card-tracked";
     card.innerHTML = `
       <div class="game-card-header" style="background:${teamData.colors.banner};border-bottom:4px solid ${teamData.colors.trim}">
         <div class="game-matchup">
-          <span class="game-team">${homeName}</span>
+          <span class="game-team">${teamData.name}</span>
           <span class="game-vs">vs</span>
-          <span class="game-opp">${awayName}</span>
+          <span class="game-opp">${m.opponent}</span>
         </div>
         <div class="game-badge-row">${stageHtml}<span class="badge ${badgeClass}">${badgeText}</span></div>
       </div>
@@ -223,62 +159,6 @@ async function init() {
         ${weatherHtml}
         ${watchNotesHtml}
         ${linksHtml}
-      </div>`;
-    container.appendChild(card);
-  }
-
-  // ── Non-tracked games from ESPN (only shown when ESPN is available) ──
-  for (const event of extraEvents) {
-    const comp = event.competitions?.[0];
-    if (!comp) continue;
-
-    const competitors = comp.competitors || [];
-    const home = competitors.find(c => c.homeAway === "home") || competitors[0];
-    const away = competitors.find(c => c.homeAway === "away") || competitors[1];
-
-    const statusName = event.status?.type?.name || "";
-    const isFinal = statusName === "STATUS_FINAL";
-    const isLive = statusName === "STATUS_IN_PROGRESS" || statusName === "STATUS_HALFTIME";
-    const kickoffISO = event.date;
-
-    let scoreHtml = "";
-    if (isFinal || isLive) {
-      const homeScore = home?.score ?? "–";
-      const awayScore = away?.score ?? "–";
-      const detail = event.status?.type?.shortDetail || (isFinal ? "FT" : "Live");
-      scoreHtml = `<div class="game-score">${home?.team?.displayName || "?"} <strong>${homeScore}–${awayScore}</strong> ${away?.team?.displayName || "?"} <span class="score-detail">${detail}</span></div>`;
-    }
-
-    const venueName = comp.venue?.fullName || "";
-    const venueCity = [comp.venue?.address?.city, comp.venue?.address?.state].filter(Boolean).join(", ");
-    const venueHtml = venueName
-      ? `<div class="game-where"><span class="ico">📍</span> ${venueName}${venueCity ? ", " + venueCity : ""}</div>` : "";
-
-    const broadcastNames = (comp.broadcasts || []).flatMap(b => b.names || []).join(", ");
-    const tvHtml = broadcastNames ? `<div class="game-tv"><span class="ico">📺</span> ${broadcastNames}</div>` : "";
-
-    const stage = event.season?.slug || "";
-    const stageHtml = stage ? `<span class="stage-tag">${stage}</span>` : "";
-
-    const badgeClass = isFinal ? "badge-result" : isLive ? "badge-live" : "badge-upcoming";
-    const badgeText = isFinal ? "Final" : isLive ? (event.status?.type?.shortDetail || "Live") : "Upcoming";
-
-    const card = document.createElement("div");
-    card.className = "game-card";
-    card.innerHTML = `
-      <div class="game-card-header" style="background:#1A1A1A;border-bottom:4px solid #555">
-        <div class="game-matchup">
-          <span class="game-team">${home?.team?.displayName || "?"}</span>
-          <span class="game-vs">vs</span>
-          <span class="game-opp">${away?.team?.displayName || "?"}</span>
-        </div>
-        <div class="game-badge-row">${stageHtml}<span class="badge ${badgeClass}">${badgeText}</span></div>
-      </div>
-      <div class="game-card-body">
-        ${scoreHtml}
-        ${!isFinal ? `<div class="game-when"><span class="ico">🕐</span> ${fmtKickoff(kickoffISO)}</div>` : ""}
-        ${venueHtml}
-        ${tvHtml}
       </div>`;
     container.appendChild(card);
   }

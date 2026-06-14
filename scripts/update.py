@@ -1,8 +1,7 @@
 """Update data.json with results, new fixtures, and recap articles.
 
 Run by GitHub Actions on a schedule. Standard library only.
-Sources: ESPN public scoreboard API (results, fixtures), Google News RSS
-(recap articles, with ESPN match-summary link as fallback).
+Sources: football-data.org (fixtures and results), Google News RSS (recap articles).
 """
 
 import json
@@ -10,22 +9,16 @@ import sys
 import urllib.request
 import urllib.parse
 import xml.etree.ElementTree as ET
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from pathlib import Path
 
 DATA_PATH = Path(__file__).parent.parent / "data.json"
-SCOREBOARD = "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates={dates}"
 NEWS_RSS = "https://news.google.com/rss/search?q={query}&hl=en-US&gl=US&ceid=US:en"
-TOURNAMENT_START = "20260611"
-TOURNAMENT_END = "20260719"
+TOURNAMENT_START_DATE = "2026-06-11"
+TOURNAMENT_END_DATE = "2026-07-19"
 
-# Tracked teams, keyed by data.json team id -> ESPN abbreviation.
-# To track another country: add it here AND to "teams" in data.json
-# (with name, group, colors, order) — fixtures and results then flow in.
-TEAM_ABBR = {"usa": "USA", "mex": "MEX", "ger": "GER"}
-
-# football-data.org is the results source (ESPN's JSON API serves stale
-# scorelines). Fixtures still come from ESPN below.
+# football-data.org is the sole data source for fixtures and results.
+# To track another country: add it here AND to "teams" in data.json.
 FOOTBALL_DATA_TOKEN = "0def0cbd236d4dfeafc8701aaa44672c"
 FD_MATCHES = ("https://api.football-data.org/v4/competitions/WC/matches"
               "?dateFrom={lo}&dateTo={hi}")
@@ -33,6 +26,13 @@ FD_TEAM_NAMES = {
     "usa": {"united states", "usa", "united states of america"},
     "mex": {"mexico", "méxico"},
     "ger": {"germany", "deutschland"},
+}
+
+# Default TV info for newly discovered fixtures (knockout round games etc.)
+DEFAULT_TV = {
+    "english": "FOX/FS1",
+    "spanish": "Telemundo",
+    "streaming": "FOX One, Peacock",
 }
 
 VENUES = {
@@ -72,10 +72,6 @@ def http_get(url, timeout=30):
         return resp.read()
 
 
-def fetch_scoreboard(dates):
-    return json.loads(http_get(SCOREBOARD.format(dates=dates)))
-
-
 def stage_for_date(date_str):
     for start, end, label in STAGE_WINDOWS:
         if start <= date_str <= end:
@@ -83,32 +79,87 @@ def stage_for_date(date_str):
     return None
 
 
-def tv_from_broadcasts(names):
-    english = next((n for n in names if n in ("FOX", "FS1")), "FOX/FS1")
-    spanish = "Telemundo" if any(n in ("Tele", "Telemundo", "Universo") for n in names) else "Telemundo"
-    streaming = ", ".join(n for n in names if n in ("Peacock", "Tubi")) or "FOX One, Peacock"
-    if "FOX One" not in streaming:
-        streaming = "FOX One, " + streaming
-    return {"english": english, "spanish": spanish, "streaming": streaming}
+def fetch_fd_matches(lo, hi):
+    req = urllib.request.Request(
+        FD_MATCHES.format(lo=lo, hi=hi),
+        headers={"X-Auth-Token": FOOTBALL_DATA_TOKEN,
+                 "User-Agent": "WorldCupTracker/1.0"},
+    )
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        return json.loads(resp.read()).get("matches", [])
 
 
-def event_team_sides(event):
-    """Return (ours_key, our_competitor, their_competitor) or None."""
-    comp = event["competitions"][0]
-    competitors = comp["competitors"]
-    for key, abbr in TEAM_ABBR.items():
-        for c in competitors:
-            if c["team"]["abbreviation"] == abbr:
-                other = next(x for x in competitors if x is not c)
-                return key, c, other
+def fd_tracked_team(fm):
+    """Return (team_key, opponent_name) if an FD match involves a tracked team, else None."""
+    home_raw = (fm.get("homeTeam") or {}).get("name") or ""
+    away_raw = (fm.get("awayTeam") or {}).get("name") or ""
+    home_lower = home_raw.lower()
+    away_lower = away_raw.lower()
+    for key, names in FD_TEAM_NAMES.items():
+        if home_lower in names:
+            return key, away_raw
+        if away_lower in names:
+            return key, home_raw
     return None
 
 
-def espn_summary_link(event):
-    for link in event.get("links", []):
-        if "summary" in link.get("rel", []):
-            return link["href"]
+def find_local_match(data, fm):
+    """Find the data.json match for an FD match (by team + kickoff proximity), or None."""
+    result = fd_tracked_team(fm)
+    if not result:
+        return None
+    key, _ = result
+    fd_dt = datetime.fromisoformat(fm["utcDate"].replace("Z", "+00:00"))
+    for m in data["matches"]:
+        if m["team"] != key:
+            continue
+        kickoff = datetime.fromisoformat(m["kickoff"])
+        if abs((kickoff - fd_dt).total_seconds()) <= 6 * 3600:
+            return m
     return None
+
+
+def find_fd_match(fd_matches, m):
+    """Find the FD match for a data.json fixture, or None."""
+    names = FD_TEAM_NAMES.get(m["team"], set())
+    kickoff = datetime.fromisoformat(m["kickoff"])
+    for fm in fd_matches:
+        home = ((fm.get("homeTeam") or {}).get("name") or "").lower()
+        away = ((fm.get("awayTeam") or {}).get("name") or "").lower()
+        if home not in names and away not in names:
+            continue
+        fd_dt = datetime.fromisoformat(fm["utcDate"].replace("Z", "+00:00"))
+        if abs((fd_dt - kickoff).total_seconds()) <= 6 * 3600:
+            return fm
+    return None
+
+
+def add_fixture_fd(data, fm):
+    result = fd_tracked_team(fm)
+    if not result:
+        return
+    key, opponent = result
+    kickoff = fm["utcDate"].replace("Z", "+00:00")
+    date_str = kickoff[:10]
+    venue_raw = fm.get("venue") or "TBD"
+    name, city, lat, lon = VENUES.get(venue_raw, (venue_raw, "", None, None))
+    fixture = {
+        "team": key,
+        "opponent": opponent,
+        "stage": stage_for_date(date_str),
+        "kickoff": kickoff,
+        "venue": name,
+        "city": city,
+        "lat": lat,
+        "lon": lon,
+        "tv": DEFAULT_TV,
+        "watchNotes": "",
+        "previews": [],
+        "result": None,
+        "articles": [],
+    }
+    data["matches"].append(fixture)
+    print(f"New fixture: {key.upper()} vs {opponent} on {date_str} ({fixture['stage']})")
 
 
 def fetch_news_articles(query, limit=3):
@@ -132,119 +183,6 @@ def fetch_news_articles(query, limit=3):
         return []
 
 
-def match_event(data, event):
-    """Find the data.json match corresponding to an ESPN event, or None."""
-    sides = event_team_sides(event)
-    if not sides:
-        return None
-    key, _, _ = sides
-    event_id = event["id"]
-    event_dt = datetime.fromisoformat(event["date"].replace("Z", "+00:00"))
-    for m in data["matches"]:
-        if m.get("espnId") == event_id:
-            return m
-        if m["team"] != key:
-            continue
-        kickoff = datetime.fromisoformat(m["kickoff"])
-        if abs((kickoff - event_dt).total_seconds()) <= 6 * 3600:
-            m["espnId"] = event_id
-            return m
-    return None
-
-
-def apply_result(m, event, data):
-    sides = event_team_sides(event)
-    key, ours, theirs = sides
-    comp = event["competitions"][0]
-    if not comp["status"]["type"].get("completed"):
-        return False
-    us, them = int(ours["score"]), int(theirs["score"])
-    m["result"] = {"us": us, "them": them}
-    if ours.get("shootoutScore") is not None and theirs.get("shootoutScore") is not None:
-        m["result"]["note"] = f"{ours['shootoutScore']}–{theirs['shootoutScore']} on penalties"
-    team_name = data["teams"][key]["name"]
-    articles = fetch_news_articles(f"{team_name} {m['opponent']} World Cup recap")
-    if not articles:
-        link = espn_summary_link(event)
-        if link:
-            articles = [{"title": "ESPN match report", "url": link}]
-    m["articles"] = articles
-    print(f"Result: {TEAM_ABBR[key]} {us}-{them} {m['opponent']}")
-    return True
-
-
-def add_fixture(data, event):
-    sides = event_team_sides(event)
-    key, ours, theirs = sides
-    comp = event["competitions"][0]
-    date_str = event["date"][:10]
-    venue_raw = comp.get("venue", {}).get("fullName", "TBD")
-    name, city, lat, lon = VENUES.get(venue_raw, (venue_raw, "", None, None))
-    broadcasts = []
-    for b in comp.get("broadcasts", []):
-        broadcasts += b.get("names", [])
-    fixture = {
-        "team": key,
-        "opponent": theirs["team"]["displayName"],
-        "stage": stage_for_date(date_str),
-        "kickoff": event["date"].replace("Z", "+00:00"),
-        "venue": name,
-        "city": city,
-        "lat": lat,
-        "lon": lon,
-        "tv": tv_from_broadcasts(broadcasts),
-        "watchNotes": "",
-        "previews": [],
-        "result": None,
-        "articles": [],
-        "espnId": event["id"],
-    }
-    data["matches"].append(fixture)
-    print(f"New fixture: {TEAM_ABBR[key]} vs {fixture['opponent']} on {date_str} ({fixture['stage']})")
-
-
-def recompute_records(data):
-    for key in data["teams"]:
-        w = d = l = gf = ga = 0
-        for m in data["matches"]:
-            if m["team"] != key or not m.get("result"):
-                continue
-            r = m["result"]
-            gf, ga = gf + r["us"], ga + r["them"]
-            if r["us"] > r["them"]:
-                w += 1
-            elif r["us"] < r["them"]:
-                l += 1
-            else:
-                d += 1
-        data["teams"][key]["record"] = {"w": w, "d": d, "l": l, "gf": gf, "ga": ga}
-
-
-def fetch_fd_matches(lo, hi):
-    req = urllib.request.Request(
-        FD_MATCHES.format(lo=lo, hi=hi),
-        headers={"X-Auth-Token": FOOTBALL_DATA_TOKEN,
-                 "User-Agent": "WorldCupTracker/1.0"},
-    )
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        return json.loads(resp.read()).get("matches", [])
-
-
-def find_fd_match(fd_matches, m):
-    """football-data match for a tracked data.json fixture, or None."""
-    names = FD_TEAM_NAMES.get(m["team"], set())
-    kickoff = datetime.fromisoformat(m["kickoff"])
-    for fm in fd_matches:
-        home = ((fm.get("homeTeam") or {}).get("name") or "").lower()
-        away = ((fm.get("awayTeam") or {}).get("name") or "").lower()
-        if home not in names and away not in names:
-            continue
-        fd_dt = datetime.fromisoformat(fm["utcDate"].replace("Z", "+00:00"))
-        if abs((fd_dt - kickoff).total_seconds()) <= 6 * 3600:
-            return fm
-    return None
-
-
 def apply_result_fd(m, fm, data):
     names = FD_TEAM_NAMES.get(m["team"], set())
     home = ((fm.get("homeTeam") or {}).get("name") or "").lower()
@@ -264,12 +202,26 @@ def apply_result_fd(m, fm, data):
         m["result"]["note"] = f"{us_p}–{them_p} on penalties"
     team_name = data["teams"][m["team"]]["name"]
     articles = fetch_news_articles(f"{team_name} {m['opponent']} World Cup recap")
-    if not articles and m.get("espnId"):
-        articles = [{"title": "ESPN match report",
-                     "url": f"https://www.espn.com/soccer/match/_/gameId/{m['espnId']}"}]
     m["articles"] = articles
     print(f"Result: {m['team'].upper()} {us}-{them} {m['opponent']}")
     return True
+
+
+def recompute_records(data):
+    for key in data["teams"]:
+        w = d = l = gf = ga = 0
+        for m in data["matches"]:
+            if m["team"] != key or not m.get("result"):
+                continue
+            r = m["result"]
+            gf, ga = gf + r["us"], ga + r["them"]
+            if r["us"] > r["them"]:
+                w += 1
+            elif r["us"] < r["them"]:
+                l += 1
+            else:
+                d += 1
+        data["teams"][key]["record"] = {"w": w, "d": d, "l": l, "gf": gf, "ga": ga}
 
 
 def main():
@@ -277,41 +229,33 @@ def main():
     data = json.loads(original)
     now = datetime.now(timezone.utc)
 
-    # 1. Discover fixtures across the whole tournament (past + future),
-    #    so a newly tracked team gets its full schedule backfilled.
+    # Fetch all WC matches from football-data.org (single call covers fixtures + results)
     try:
-        board = fetch_scoreboard(f"{TOURNAMENT_START}-{TOURNAMENT_END}")
-        for event in board.get("events", []):
-            if event_team_sides(event) is None:
-                continue
-            if match_event(data, event) is None:
-                add_fixture(data, event)
+        fd_all = fetch_fd_matches(TOURNAMENT_START_DATE, TOURNAMENT_END_DATE)
     except Exception as e:
-        print(f"Fixture discovery failed: {e}", file=sys.stderr)
+        print(f"football-data fetch failed: {e}", file=sys.stderr)
+        fd_all = []
 
-    # 2. Results from football-data.org for any tracked match past kickoff.
+    # Discover new fixtures for tracked teams
+    for fm in fd_all:
+        if fd_tracked_team(fm) is None:
+            continue
+        if find_local_match(data, fm) is None:
+            add_fixture_fd(data, fm)
+
+    # Apply results for tracked matches past kickoff
     pending = [m for m in data["matches"]
                if not m.get("result")
                and now > datetime.fromisoformat(m["kickoff"])]
-    if pending:
-        kicks = [datetime.fromisoformat(m["kickoff"]).astimezone(timezone.utc)
-                 for m in pending]
-        lo = (min(kicks) - timedelta(days=1)).strftime("%Y-%m-%d")
-        hi = (max(kicks) + timedelta(days=1)).strftime("%Y-%m-%d")
-        try:
-            fd_matches = fetch_fd_matches(lo, hi)
-        except Exception as e:
-            print(f"football-data fetch failed: {e}", file=sys.stderr)
-            fd_matches = []
-        for m in pending:
-            fm = find_fd_match(fd_matches, m)
-            if fm is None:
-                print(f"No FD match found: {m['team'].upper()} vs {m['opponent']}")
-            elif fm.get("status") != "FINISHED":
-                print(f"Not final yet: {m['team'].upper()} vs {m['opponent']} "
-                      f"— FD status {fm.get('status')}")
-            else:
-                apply_result_fd(m, fm, data)
+    for m in pending:
+        fm = find_fd_match(fd_all, m)
+        if fm is None:
+            print(f"No FD match found: {m['team'].upper()} vs {m['opponent']}")
+        elif fm.get("status") != "FINISHED":
+            print(f"Not final yet: {m['team'].upper()} vs {m['opponent']} "
+                  f"— FD status {fm.get('status')}")
+        else:
+            apply_result_fd(m, fm, data)
 
     recompute_records(data)
     data["matches"].sort(key=lambda m: m["kickoff"])
