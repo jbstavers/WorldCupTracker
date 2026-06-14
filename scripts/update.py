@@ -9,7 +9,7 @@ import sys
 import urllib.request
 import urllib.parse
 import xml.etree.ElementTree as ET
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 DATA_PATH = Path(__file__).parent.parent / "data.json"
@@ -229,9 +229,15 @@ def main():
     data = json.loads(original)
     now = datetime.now(timezone.utc)
 
-    # Fetch all WC matches from football-data.org (single call covers fixtures + results)
+    # Fetch a rolling 16-day window (past 2 days → next 14 days).
+    # The full tournament range caused connection failures on the free tier;
+    # this smaller request is reliable and covers today's games, recent
+    # results, and near-future fixtures. Knockout-round fixtures are
+    # discovered naturally once they fall within the window.
+    window_lo = (now - timedelta(days=2)).strftime("%Y-%m-%d")
+    window_hi = (now + timedelta(days=14)).strftime("%Y-%m-%d")
     try:
-        fd_all = fetch_fd_matches(TOURNAMENT_START_DATE, TOURNAMENT_END_DATE)
+        fd_all = fetch_fd_matches(window_lo, window_hi)
     except Exception as e:
         print(f"football-data fetch failed: {e}", file=sys.stderr)
         fd_all = []
