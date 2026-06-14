@@ -229,30 +229,31 @@ def main():
     data = json.loads(original)
     now = datetime.now(timezone.utc)
 
-    # Fetch a rolling 16-day window (past 2 days → next 14 days).
-    # The full tournament range caused connection failures on the free tier;
-    # this smaller request is reliable and covers today's games, recent
-    # results, and near-future fixtures. Knockout-round fixtures are
-    # discovered naturally once they fall within the window.
-    window_lo = (now - timedelta(days=2)).strftime("%Y-%m-%d")
-    window_hi = (now + timedelta(days=14)).strftime("%Y-%m-%d")
+    # Fetch today's matches — all we need for otherMatches and same-day results
+    today_str = now.strftime("%Y-%m-%d")
     try:
-        fd_all = fetch_fd_matches(window_lo, window_hi)
+        fd_today = fetch_fd_matches(today_str, today_str)
     except Exception as e:
         print(f"football-data fetch failed: {e}", file=sys.stderr)
-        fd_all = []
-
-    # Discover new fixtures for tracked teams
-    for fm in fd_all:
-        if fd_tracked_team(fm) is None:
-            continue
-        if find_local_match(data, fm) is None:
-            add_fixture_fd(data, fm)
+        fd_today = []
 
     # Apply results for tracked matches past kickoff
     pending = [m for m in data["matches"]
                if not m.get("result")
                and now > datetime.fromisoformat(m["kickoff"])]
+    # Separate pending into today vs older (older need their own fetch)
+    pending_today = [m for m in pending if m["kickoff"][:10] == today_str]
+    pending_older = [m for m in pending if m["kickoff"][:10] != today_str]
+    fd_older = []
+    if pending_older:
+        kicks = [datetime.fromisoformat(m["kickoff"]).astimezone(timezone.utc) for m in pending_older]
+        lo = (min(kicks) - timedelta(days=1)).strftime("%Y-%m-%d")
+        hi = (max(kicks) + timedelta(days=1)).strftime("%Y-%m-%d")
+        try:
+            fd_older = fetch_fd_matches(lo, hi)
+        except Exception as e:
+            print(f"football-data fetch failed (older results): {e}", file=sys.stderr)
+    fd_all = fd_today + fd_older
     for m in pending:
         fm = find_fd_match(fd_all, m)
         if fm is None:
@@ -263,12 +264,19 @@ def main():
         else:
             apply_result_fd(m, fm, data)
 
+    # Discover new fixtures for tracked teams from today's data
+    for fm in fd_today:
+        if fd_tracked_team(fm) is None:
+            continue
+        if find_local_match(data, fm) is None:
+            add_fixture_fd(data, fm)
+
     recompute_records(data)
     data["matches"].sort(key=lambda m: m["kickoff"])
 
-    # Rebuild full non-tracked match list for the Today's Games page
+    # Rebuild non-tracked match list for the Today's Games page
     other_matches = []
-    for fm in fd_all:
+    for fm in fd_today:
         if fd_tracked_team(fm) is not None:
             continue
         home_raw = (fm.get("homeTeam") or {}).get("name") or "?"
