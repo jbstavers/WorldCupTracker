@@ -229,10 +229,13 @@ def main():
     data = json.loads(original)
     now = datetime.now(timezone.utc)
 
-    # Fetch today's matches — all we need for otherMatches and same-day results
+    # Fetch yesterday + today UTC. The site displays dates in PT, which can be
+    # one day behind UTC in the evening, so we need both days to cover all
+    # "today PT" games regardless of when the update runs.
     today_str = now.strftime("%Y-%m-%d")
+    yesterday_str = (now - timedelta(days=1)).strftime("%Y-%m-%d")
     try:
-        fd_today = fetch_fd_matches(today_str, today_str)
+        fd_today = fetch_fd_matches(yesterday_str, today_str)
     except Exception as e:
         print(f"football-data fetch failed: {e}", file=sys.stderr)
         fd_today = []
