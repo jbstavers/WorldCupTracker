@@ -260,6 +260,35 @@ def main():
     recompute_records(data)
     data["matches"].sort(key=lambda m: m["kickoff"])
 
+    # Rebuild full non-tracked match list for the Today's Games page
+    other_matches = []
+    for fm in fd_all:
+        if fd_tracked_team(fm) is not None:
+            continue
+        home_raw = (fm.get("homeTeam") or {}).get("name") or "?"
+        away_raw = (fm.get("awayTeam") or {}).get("name") or "?"
+        kickoff = fm["utcDate"].replace("Z", "+00:00")
+        venue_raw = fm.get("venue") or ""
+        name, city, _, _ = VENUES.get(venue_raw, (venue_raw, "", None, None))
+        score = fm.get("score") or {}
+        ft = score.get("fullTime") or {}
+        result = None
+        if fm.get("status") == "FINISHED" and ft.get("home") is not None:
+            result = {"home": ft["home"], "away": ft["away"]}
+            pens = score.get("penalties") or {}
+            if score.get("duration") == "PENALTIES" and pens.get("home") is not None:
+                result["note"] = f"{pens['home']}–{pens['away']} on penalties"
+        other_matches.append({
+            "home": home_raw,
+            "away": away_raw,
+            "kickoff": kickoff,
+            "venue": name,
+            "city": city,
+            "result": result,
+        })
+    other_matches.sort(key=lambda m: m["kickoff"])
+    data["otherMatches"] = other_matches
+
     before = {k: v for k, v in json.loads(original).items() if k != "updated"}
     after = {k: v for k, v in data.items() if k != "updated"}
     if before == after:

@@ -86,9 +86,12 @@ async function init() {
   const todayUTC = new Date().toISOString().slice(0, 10);
   const todayMatches = data.matches.filter(m => m.kickoff.slice(0, 10) === todayUTC);
 
+  // Other WC matches today (non-tracked teams)
+  const otherMatches = (data.otherMatches || []).filter(m => m.kickoff.slice(0, 10) === todayUTC);
+
   const container = document.getElementById("today-games");
-  if (!todayMatches.length) {
-    container.innerHTML = `<p class="today-empty">No tracked matches scheduled today.</p>`;
+  if (!todayMatches.length && !otherMatches.length) {
+    container.innerHTML = `<p class="today-empty">No World Cup matches scheduled today.</p>`;
     return;
   }
 
@@ -158,6 +161,44 @@ async function init() {
         ${weatherHtml}
         ${watchNotesHtml}
         ${linksHtml}
+      </div>`;
+    container.appendChild(card);
+  }
+
+  // ── Non-tracked WC matches ──
+  for (const m of otherMatches) {
+    const kickoff = new Date(m.kickoff);
+    const isFinal = m.result != null;
+    const isLive = !isFinal && kickoff <= now;
+
+    let scoreHtml = "";
+    if (isFinal) {
+      const note = m.result.note ? ` <span class="score-detail">(${m.result.note})</span>` : "";
+      scoreHtml = `<div class="game-score">${m.home} <strong>${m.result.home}–${m.result.away}</strong> ${m.away}${note} <span class="score-detail">FT</span></div>`;
+    }
+
+    const venueHtml = m.venue
+      ? `<div class="game-where"><span class="ico">📍</span> ${m.venue}${m.city ? ", " + m.city : ""}</div>`
+      : "";
+
+    const badgeClass = isFinal ? "badge-result" : isLive ? "badge-live" : "badge-upcoming";
+    const badgeText = isFinal ? "Final" : isLive ? "Live" : "Upcoming";
+
+    const card = document.createElement("div");
+    card.className = "game-card";
+    card.innerHTML = `
+      <div class="game-card-header" style="background:#1A1A1A;border-bottom:4px solid #555">
+        <div class="game-matchup">
+          <span class="game-team">${m.home}</span>
+          <span class="game-vs">vs</span>
+          <span class="game-opp">${m.away}</span>
+        </div>
+        <div class="game-badge-row"><span class="badge ${badgeClass}">${badgeText}</span></div>
+      </div>
+      <div class="game-card-body">
+        ${scoreHtml}
+        ${!isFinal ? `<div class="game-when"><span class="ico">🕐</span> ${fmtKickoff(m.kickoff)}</div>` : ""}
+        ${venueHtml}
       </div>`;
     container.appendChild(card);
   }
