@@ -81,13 +81,15 @@ async function init() {
     timeZone: "America/Los_Angeles"
   });
 
-  // Match on the date portion of the stored kickoff string (game's scheduled local date)
-  // against today's UTC date — avoids late-afternoon PT/UTC day mismatches.
-  const todayUTC = new Date().toISOString().slice(0, 10);
-  const todayMatches = data.matches.filter(m => m.kickoff.slice(0, 10) === todayUTC);
+  const todayPT = new Date().toLocaleDateString("en-CA", { timeZone: "America/Los_Angeles" });
+  const todayMatches = data.matches.filter(m =>
+    new Date(m.kickoff).toLocaleDateString("en-CA", { timeZone: "America/Los_Angeles" }) === todayPT
+  );
 
   // Other WC matches today (non-tracked teams)
-  const otherMatches = (data.otherMatches || []).filter(m => m.kickoff.slice(0, 10) === todayUTC);
+  const otherMatches = (data.otherMatches || []).filter(m =>
+    new Date(m.kickoff).toLocaleDateString("en-CA", { timeZone: "America/Los_Angeles" }) === todayPT
+  );
 
   const container = document.getElementById("today-games");
   if (!todayMatches.length && !otherMatches.length) {
