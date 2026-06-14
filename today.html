@@ -81,11 +81,10 @@ async function init() {
     timeZone: "America/Los_Angeles"
   });
 
-  // Filter data.json matches to those with a kickoff date matching today (PT)
-  const todayPT = new Date().toLocaleDateString("en-CA", { timeZone: "America/Los_Angeles" });
-  const todayMatches = data.matches.filter(m =>
-    new Date(m.kickoff).toLocaleDateString("en-CA", { timeZone: "America/Los_Angeles" }) === todayPT
-  );
+  // Match on the date portion of the stored kickoff string (game's scheduled local date)
+  // against today's UTC date — avoids late-afternoon PT/UTC day mismatches.
+  const todayUTC = new Date().toISOString().slice(0, 10);
+  const todayMatches = data.matches.filter(m => m.kickoff.slice(0, 10) === todayUTC);
 
   const container = document.getElementById("today-games");
   if (!todayMatches.length) {
