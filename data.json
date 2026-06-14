@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-14 01:11 UTC",
+  "updated": "2026-06-14 01:20 UTC",
   "teams": {
     "usa": {
       "name": "United States",
@@ -501,5 +501,38 @@
       }
     ]
   },
-  "otherMatches": []
+  "otherMatches": [
+    {
+      "home": "Haiti",
+      "away": "Scotland",
+      "kickoff": "2026-06-14T01:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "Australia",
+      "away": "Turkey",
+      "kickoff": "2026-06-14T04:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "Netherlands",
+      "away": "Japan",
+      "kickoff": "2026-06-14T20:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "Ivory Coast",
+      "away": "Ecuador",
+      "kickoff": "2026-06-14T23:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    }
+  ]
 }
