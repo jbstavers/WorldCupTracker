@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-14 07:58 UTC",
+  "updated": "2026-06-14 21:52 UTC",
   "teams": {
     "usa": {
       "name": "United States",
@@ -59,11 +59,11 @@
         "Ecuador"
       ],
       "record": {
-        "w": 0,
+        "w": 1,
         "d": 0,
         "l": 0,
-        "gf": 0,
-        "ga": 0
+        "gf": 7,
+        "ga": 1
       },
       "order": 3,
       "colors": {
@@ -199,8 +199,24 @@
           "url": "https://www.bundesliga.com/en/bundesliga/news/ones-to-watch-world-cup-group-e-musiala-diomande-nmecha-37752"
         }
       ],
-      "result": null,
-      "articles": [],
+      "result": {
+        "us": 7,
+        "them": 1
+      },
+      "articles": [
+        {
+          "title": "FOX Sports: Germany vs Curaçao Highlights | 2026 FIFA World Cup™ - FOX Sports",
+          "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE85Sl9wZ3VWWmE1XzZvV0VkYnd6b2k5SUVSRFVESmwyNkdBNzZKMWlSSWdCOV9kbS13cUlRY1JBYTlFYXRjQkJaODBWWkNKN3VJcXpJNlplRHAyX21fS05qXzBn?oc=5"
+        },
+        {
+          "title": "The New York Times: Germany begin World Cup with crushing win. But did Curacao fall foul of the hydration break? - The Athletic - The New York Times",
+          "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPa0tBdm5GUFFnd3VyNU1SVjdFWG9yZkI4ZzZzZ05mSEY3YkltNXpnMElDRUpza1VlbzNoYWwtY0JvYmlwTnk4OTFRakdaYlZGVGdadHJlRXZpZ1p0TkN0SFp1dUlGLVZGaWZ4RzZHQTVfM3ZSZElBVHRfWktYTS12Q1lIT29yX0ZrZVVaZWVBYS05Ym1fN2NYTF90UGtfUGJxR0JUaXBtNnZyQ1JzQk80?oc=5"
+        },
+        {
+          "title": "ESPN: Germany 7-1 Curaçao (Jun 14, 2026) Game Analysis - ESPN",
+          "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE9acUw3Mmx0eEYwUkR3OFViZ0F6clowZGJtOU0zSEdyOEo0ajJQQ3RUVThiOWV5b05KZGxQSWFBNXktN0hMOUs5TGJIWm1KaWRiRG1qejB0b0hBTEtwWjlr?oc=5"
+        }
+      ],
       "espnId": "760422"
     },
     {
