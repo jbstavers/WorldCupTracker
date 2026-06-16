@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-15 22:10 UTC",
+  "updated": "2026-06-16 01:35 UTC",
   "teams": {
     "usa": {
       "name": "United States",
@@ -519,50 +519,6 @@
   },
   "otherMatches": [
     {
-      "home": "Haiti",
-      "away": "Scotland",
-      "kickoff": "2026-06-14T01:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 0,
-        "away": 1
-      }
-    },
-    {
-      "home": "Australia",
-      "away": "Turkey",
-      "kickoff": "2026-06-14T04:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 2,
-        "away": 0
-      }
-    },
-    {
-      "home": "Netherlands",
-      "away": "Japan",
-      "kickoff": "2026-06-14T20:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 2,
-        "away": 2
-      }
-    },
-    {
-      "home": "Ivory Coast",
-      "away": "Ecuador",
-      "kickoff": "2026-06-14T23:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 1,
-        "away": 0
-      }
-    },
-    {
       "home": "Sweden",
       "away": "Tunisia",
       "kickoff": "2026-06-15T02:00:00+00:00",
@@ -599,6 +555,33 @@
       "home": "Saudi Arabia",
       "away": "Uruguay",
       "kickoff": "2026-06-15T22:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": {
+        "home": 1,
+        "away": 1
+      }
+    },
+    {
+      "home": "Iran",
+      "away": "New Zealand",
+      "kickoff": "2026-06-16T01:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "France",
+      "away": "Senegal",
+      "kickoff": "2026-06-16T19:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "Iraq",
+      "away": "Norway",
+      "kickoff": "2026-06-16T22:00:00+00:00",
       "venue": "",
       "city": "",
       "result": null
