@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-17 19:14 UTC",
+  "updated": "2026-06-17 22:07 UTC",
   "teams": {
     "usa": {
       "name": "United States",
@@ -590,7 +590,10 @@
       "kickoff": "2026-06-17T20:00:00+00:00",
       "venue": "",
       "city": "",
-      "result": null
+      "result": {
+        "home": 4,
+        "away": 2
+      }
     },
     {
       "home": "Ghana",
