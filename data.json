@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-16 22:09 UTC",
+  "updated": "2026-06-17 01:33 UTC",
   "teams": {
     "usa": {
       "name": "United States",
@@ -519,50 +519,6 @@
   },
   "otherMatches": [
     {
-      "home": "Sweden",
-      "away": "Tunisia",
-      "kickoff": "2026-06-15T02:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 5,
-        "away": 1
-      }
-    },
-    {
-      "home": "Spain",
-      "away": "Cape Verde Islands",
-      "kickoff": "2026-06-15T16:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 0,
-        "away": 0
-      }
-    },
-    {
-      "home": "Belgium",
-      "away": "Egypt",
-      "kickoff": "2026-06-15T19:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 1,
-        "away": 1
-      }
-    },
-    {
-      "home": "Saudi Arabia",
-      "away": "Uruguay",
-      "kickoff": "2026-06-15T22:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 1,
-        "away": 1
-      }
-    },
-    {
       "home": "Iran",
       "away": "New Zealand",
       "kickoff": "2026-06-16T01:00:00+00:00",
@@ -588,6 +544,49 @@
       "home": "Iraq",
       "away": "Norway",
       "kickoff": "2026-06-16T22:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": {
+        "home": 1,
+        "away": 4
+      }
+    },
+    {
+      "home": "Argentina",
+      "away": "Algeria",
+      "kickoff": "2026-06-17T01:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "Austria",
+      "away": "Jordan",
+      "kickoff": "2026-06-17T04:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "Portugal",
+      "away": "Congo DR",
+      "kickoff": "2026-06-17T17:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "England",
+      "away": "Croatia",
+      "kickoff": "2026-06-17T20:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "Ghana",
+      "away": "Panama",
+      "kickoff": "2026-06-17T23:00:00+00:00",
       "venue": "",
       "city": "",
       "result": null
