@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-18 22:09 UTC",
+  "updated": "2026-06-19 01:36 UTC",
   "teams": {
     "usa": {
       "name": "United States",
@@ -519,61 +519,6 @@
   },
   "otherMatches": [
     {
-      "home": "Argentina",
-      "away": "Algeria",
-      "kickoff": "2026-06-17T01:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 3,
-        "away": 0
-      }
-    },
-    {
-      "home": "Austria",
-      "away": "Jordan",
-      "kickoff": "2026-06-17T04:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 3,
-        "away": 1
-      }
-    },
-    {
-      "home": "Portugal",
-      "away": "Congo DR",
-      "kickoff": "2026-06-17T17:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 1,
-        "away": 1
-      }
-    },
-    {
-      "home": "England",
-      "away": "Croatia",
-      "kickoff": "2026-06-17T20:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 4,
-        "away": 2
-      }
-    },
-    {
-      "home": "Ghana",
-      "away": "Panama",
-      "kickoff": "2026-06-17T23:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 1,
-        "away": 0
-      }
-    },
-    {
       "home": "Uzbekistan",
       "away": "Colombia",
       "kickoff": "2026-06-18T02:00:00+00:00",
@@ -610,6 +555,17 @@
       "home": "Canada",
       "away": "Qatar",
       "kickoff": "2026-06-18T22:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": {
+        "home": 6,
+        "away": 0
+      }
+    },
+    {
+      "home": "Scotland",
+      "away": "Morocco",
+      "kickoff": "2026-06-19T22:00:00+00:00",
       "venue": "",
       "city": "",
       "result": null
