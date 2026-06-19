@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-19 01:36 UTC",
+  "updated": "2026-06-19 05:07 UTC",
   "teams": {
     "usa": {
       "name": "United States",
@@ -35,10 +35,10 @@
         "Czechia"
       ],
       "record": {
-        "w": 1,
+        "w": 2,
         "d": 0,
         "l": 0,
-        "gf": 2,
+        "gf": 3,
         "ga": 0
       },
       "order": 1,
@@ -247,8 +247,24 @@
           "url": "https://www.hitc.com/world-cup-2026-group-a-guide-mexico-favorites-as-south-korea-wait/"
         }
       ],
-      "result": null,
-      "articles": [],
+      "result": {
+        "us": 1,
+        "them": 0
+      },
+      "articles": [
+        {
+          "title": "FOX Sports: Mexico vs South Korea Highlights | 2026 FIFA World Cup™ - FOX Sports",
+          "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE44VFUzYVJNWHRZbnNVc2pfSTBhSmRQWEdyOGdkTWJNcWRJcE54VV9PWDAxU0dMYWtPOG1ZaWxDSkxxSDZNS01rZHF5eHcyTDJqVFdzNGF6elBOakJxZnZsTmR3?oc=5"
+        },
+        {
+          "title": "USA Today: Mexico beats Korea to win World Cup group, clinch knockout round: Relive the game - USA Today",
+          "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPZEUzdW9BaEU5NDRDcFhfZVF5dWVRcTljaTd6OFdDRXBSXzRPbHlNNE1PSEw4b1BEQ1hxM1pIOWg1V0hvaEcyNEoyX09Fdm16Z2dOX2ZIdnlUbElYZC1Dems0WElMSVBwTC1WaGlkZ3owWThiVVN3TjBtRUR3a3ozOUt3UUgzaFBnbXlDWGFQYk9SZEtaY3FDeWFCVHByOXBwRWV6RklwSlVWcEtpN1U1aE44NEhMc2RVVDd1NlVMdEZSQlFub3I4dGVZUzBNQ19VZFE?oc=5"
+        },
+        {
+          "title": "Bleacher Report: Mexico Beats South Korea, Final Match Stats, Highlights & World Cup Group A Scenarios - Bleacher Report",
+          "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPVzVtbVhmNjYyRGVGYXJucXVyOTBZR1lURXlkYWhHcEtvdGNWUEZkUnZEM250VlQ0UDhmYzdSNDV0cXZLbDA4U2FsZEhyRDJtVXRiMUNaaXdWUjNjZUVRSlFSZ2cteFBlZDM0a2x2WGZlMWNtR3ktZ0RlNXlMdWpZRy1EYTNCdEt5b29ONlRmQkRLcFF5X2Q0R3RoQU50Wm5xdjhXS2NYajdydnk2aEc2TmlPNVhEYVMxV1N3VXFKOUlvQQ?oc=5"
+        }
+      ],
       "espnId": "760441"
     },
     {
