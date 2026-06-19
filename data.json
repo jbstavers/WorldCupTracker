@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-19 05:07 UTC",
+  "updated": "2026-06-19 21:48 UTC",
   "teams": {
     "usa": {
       "name": "United States",
@@ -11,10 +11,10 @@
         "Türkiye"
       ],
       "record": {
-        "w": 1,
+        "w": 2,
         "d": 0,
         "l": 0,
-        "gf": 4,
+        "gf": 6,
         "ga": 1
       },
       "order": 2,
@@ -295,8 +295,24 @@
           "url": "https://bleacherreport.com/articles/25435511-world-cup-2026-match-predictions-all-group-fixtures"
         }
       ],
-      "result": null,
-      "articles": [],
+      "result": {
+        "us": 2,
+        "them": 0
+      },
+      "articles": [
+        {
+          "title": "FOX Sports: United States vs Australia Highlights | 2026 FIFA World Cup™ - FOX Sports",
+          "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE1ieHF5VFhjaXM3QUtpSDNXdTlKaGwzT1JOZnJfNC1seTdUaFFqcm1ZVS1pYkMtNE84QnR3YXlkd2pZNVFRQWxPQlJIcVRMMXF6N1dsQmIyYjdvUXRFdC1xVUJ3?oc=5"
+        },
+        {
+          "title": "Yahoo Sports: USA vs. Australia Score, Live Updates, Highlights From 2026 World Cup Match - Yahoo Sports",
+          "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOajJyZkp0R3lnSUFHZnpnMm1RNFctdHByTm5FV1pkWUc0OG5SWExveERHMFVYNFluakROSXc4VDFkR3VUNnJKNUFPdndRTWVWQWp4b3pmc2ctWU9YZkhwTFUzVWtGMWlFUUN0Zk1rRmxnbFV0REpwWmxxZlNvWE5HSWJn?oc=5"
+        },
+        {
+          "title": "Seattle Sounders FC: USAvAUS RECAP: United States clinches Round of 32 berth with win over Australia - Seattle Sounders FC",
+          "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOZkR6ZFdVNjhsdl82NFVaRVRSWGc2S0hKTC1fdzlBVFQ5a1ZlQ29na1dMM2VwakM5SVp2SXYtR3NoamtPUTdjRXY1bThTenF3OEp0SGNkamZSb3haa1BrUExiM1ozdmcxQ3lUTUNlTHo3d1ktdHBWa2RZV003a01EbHIwckZpM2RJTTIyMFFieEwyTDJzOUltZEhsbWJhQ21MUXZ4VzRrV1Zmd0JjMXc0?oc=5"
+        }
+      ],
       "espnId": "760442"
     },
     {
