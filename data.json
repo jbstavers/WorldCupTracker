@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-19 21:48 UTC",
+  "updated": "2026-06-20 01:24 UTC",
   "teams": {
     "usa": {
       "name": "United States",
@@ -551,53 +551,44 @@
   },
   "otherMatches": [
     {
-      "home": "Uzbekistan",
-      "away": "Colombia",
-      "kickoff": "2026-06-18T02:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 1,
-        "away": 3
-      }
-    },
-    {
-      "home": "Czechia",
-      "away": "South Africa",
-      "kickoff": "2026-06-18T16:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 1,
-        "away": 1
-      }
-    },
-    {
-      "home": "Switzerland",
-      "away": "Bosnia-Herzegovina",
-      "kickoff": "2026-06-18T19:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 4,
-        "away": 1
-      }
-    },
-    {
-      "home": "Canada",
-      "away": "Qatar",
-      "kickoff": "2026-06-18T22:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 6,
-        "away": 0
-      }
-    },
-    {
       "home": "Scotland",
       "away": "Morocco",
       "kickoff": "2026-06-19T22:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": {
+        "home": 0,
+        "away": 1
+      }
+    },
+    {
+      "home": "Brazil",
+      "away": "Haiti",
+      "kickoff": "2026-06-20T00:30:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "Turkey",
+      "away": "Paraguay",
+      "kickoff": "2026-06-20T03:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "Netherlands",
+      "away": "Sweden",
+      "kickoff": "2026-06-20T17:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "Ecuador",
+      "away": "Curaçao",
+      "kickoff": "2026-06-21T00:00:00+00:00",
       "venue": "",
       "city": "",
       "result": null
