@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-20 21:50 UTC",
+  "updated": "2026-06-21 01:34 UTC",
   "teams": {
     "usa": {
       "name": "United States",
@@ -59,11 +59,11 @@
         "Ecuador"
       ],
       "record": {
-        "w": 1,
+        "w": 2,
         "d": 0,
         "l": 0,
-        "gf": 7,
-        "ga": 1
+        "gf": 9,
+        "ga": 2
       },
       "order": 3,
       "colors": {
@@ -343,8 +343,24 @@
           "url": "https://www.bundesliga.com/en/bundesliga/news/ones-to-watch-world-cup-group-e-musiala-diomande-nmecha-37752"
         }
       ],
-      "result": null,
-      "articles": [],
+      "result": {
+        "us": 2,
+        "them": 1
+      },
+      "articles": [
+        {
+          "title": "FOX Sports: Germany vs Ivory Coast Highlights | 2026 FIFA World Cup™ - FOX Sports",
+          "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE1zUVJzOHV1OWVwYTRrNDVBYk1rSVdpVmprSHZwWEtvQllRcUdmS05MN0JCWTJTQXFNZTN6QkZFbE5MYkxMbmw4QWw5Umh0cFZkWnJiWTh6WEEyZkNCQk9WTXdn?oc=5"
+        },
+        {
+          "title": "FOX Sports: Germany vs Ivory Coast Quick Highlights | 2026 FIFA World Cup™ - FOX Sports",
+          "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTFBvQ0IxeUlrYlhiSS1NdUpYUVp3d3JCZWhFbzRLMEhBZ2htNGd1THhIY2wtdU5BUVJHQXk1WlFsdWdoLUlwdmdxeTAxRjJvYjd0RXg4TEo5V3FQR2NPaG9GekhwWkdLQWFaTVI2Ty1B?oc=5"
+        },
+        {
+          "title": "FOX Sports: Germany’s Deniz Undav nets brilliant equilizer vs Ivory Coast | 2026 FIFA World Cup™ - FOX Sports",
+          "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTFBHbXhnWHZReDJhaW5TNDFnb3h5c3k4MmFqOTl3UnBVTVJjd0l2aTlPNFZwb0xKQ01JYnBOMjVBTklybUxoc2traWlKQS14ekhSa0Jib1JvR3FJQklmR29QUUhn?oc=5"
+        }
+      ],
       "espnId": "760448"
     },
     {
@@ -551,17 +567,6 @@
   },
   "otherMatches": [
     {
-      "home": "Scotland",
-      "away": "Morocco",
-      "kickoff": "2026-06-19T22:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 0,
-        "away": 1
-      }
-    },
-    {
       "home": "Brazil",
       "away": "Haiti",
       "kickoff": "2026-06-20T00:30:00+00:00",
@@ -598,6 +603,38 @@
       "home": "Ecuador",
       "away": "Curaçao",
       "kickoff": "2026-06-21T00:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "Tunisia",
+      "away": "Japan",
+      "kickoff": "2026-06-21T04:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "Spain",
+      "away": "Saudi Arabia",
+      "kickoff": "2026-06-21T16:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "Belgium",
+      "away": "Iran",
+      "kickoff": "2026-06-21T19:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "Uruguay",
+      "away": "Cape Verde Islands",
+      "kickoff": "2026-06-21T22:00:00+00:00",
       "venue": "",
       "city": "",
       "result": null
