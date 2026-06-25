@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-24 21:53 UTC",
+  "updated": "2026-06-25 01:22 UTC",
   "teams": {
     "usa": {
       "name": "United States",
@@ -567,61 +567,6 @@
   },
   "otherMatches": [
     {
-      "home": "Norway",
-      "away": "Senegal",
-      "kickoff": "2026-06-23T00:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 3,
-        "away": 2
-      }
-    },
-    {
-      "home": "Jordan",
-      "away": "Algeria",
-      "kickoff": "2026-06-23T03:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 1,
-        "away": 2
-      }
-    },
-    {
-      "home": "Portugal",
-      "away": "Uzbekistan",
-      "kickoff": "2026-06-23T17:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 5,
-        "away": 0
-      }
-    },
-    {
-      "home": "England",
-      "away": "Ghana",
-      "kickoff": "2026-06-23T20:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 0,
-        "away": 0
-      }
-    },
-    {
-      "home": "Panama",
-      "away": "Croatia",
-      "kickoff": "2026-06-23T23:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 0,
-        "away": 1
-      }
-    },
-    {
       "home": "Colombia",
       "away": "Congo DR",
       "kickoff": "2026-06-24T02:00:00+00:00",
@@ -660,12 +605,50 @@
       "kickoff": "2026-06-24T22:00:00+00:00",
       "venue": "",
       "city": "",
-      "result": null
+      "result": {
+        "home": 4,
+        "away": 2
+      }
     },
     {
       "home": "Scotland",
       "away": "Brazil",
       "kickoff": "2026-06-24T22:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": {
+        "home": 0,
+        "away": 3
+      }
+    },
+    {
+      "home": "South Africa",
+      "away": "South Korea",
+      "kickoff": "2026-06-25T01:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "Curaçao",
+      "away": "Ivory Coast",
+      "kickoff": "2026-06-25T20:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "Tunisia",
+      "away": "Netherlands",
+      "kickoff": "2026-06-25T23:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "Japan",
+      "away": "Sweden",
+      "kickoff": "2026-06-25T23:00:00+00:00",
       "venue": "",
       "city": "",
       "result": null
