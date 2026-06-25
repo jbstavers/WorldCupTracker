@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-25 01:22 UTC",
+  "updated": "2026-06-25 04:49 UTC",
   "teams": {
     "usa": {
       "name": "United States",
@@ -35,10 +35,10 @@
         "Czechia"
       ],
       "record": {
-        "w": 2,
+        "w": 3,
         "d": 0,
         "l": 0,
-        "gf": 3,
+        "gf": 6,
         "ga": 0
       },
       "order": 1,
@@ -387,8 +387,24 @@
           "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021444"
         }
       ],
-      "result": null,
-      "articles": [],
+      "result": {
+        "us": 3,
+        "them": 0
+      },
+      "articles": [
+        {
+          "title": "FOX Sports: Czechia vs Mexico Highlights | 2026 FIFA World Cup™ - FOX Sports",
+          "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE1Uc25YbFVSS0dJY1ZsWHlVZUJvcTRiMUthMGRrOGc3NHFLdHRmVzBDX2JDdEhqVkZ5ODdVVWs2N25kb0V2RWZfTDRVYjhKUXRqM2VIYnEyNURzUnBfNHNWRk1n?oc=5"
+        },
+        {
+          "title": "USA Today: What time is Mexico vs. Czechia today? How to watch World Cup match - USA Today",
+          "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPbTBTTU1ubWplUGVweHh3bGU4S0xwbkIxQ2lHaHVpNjNuT0ZTMHRLWThTMWxwbDJreHVtdjFnMDBRRzduVExodFYzdnZIQVpsMW5jY3NxWU5HZnV0TDF0dTdmTlIyV2Z6OVZ5UVZDY1E3WkduWHQ3THNJSHYydWxfR2Rla1Qtc2dnbzk3ZnlsV1puVkVWb0ZZZVRhZG92bnlyY094S1VyUDhYbHNURDlkck5fY3VLdkpkc2ow?oc=5"
+        },
+        {
+          "title": "FOX Sports: Czechia vs Mexico Extended Highlights | 2026 FIFA World Cup™ - FOX Sports",
+          "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE9MNUp4ZVFva3hOVUd0cnhiVUVIYzlEYUVzWXRYNFlLNkJfaHlNU1JUVTFqUzFXYk5YMzNHMEdLRW91TXRINVRTSkREcnJQc1lwempGUFlydnFKWVVPdTRaakd3?oc=5"
+        }
+      ],
       "espnId": "760467"
     },
     {
@@ -627,7 +643,10 @@
       "kickoff": "2026-06-25T01:00:00+00:00",
       "venue": "",
       "city": "",
-      "result": null
+      "result": {
+        "home": 1,
+        "away": 0
+      }
     },
     {
       "home": "Curaçao",
