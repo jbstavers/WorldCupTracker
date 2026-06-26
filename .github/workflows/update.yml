@@ -17,6 +17,12 @@ jobs:
       - name: Update data.json
         run: python3 scripts/update.py
 
+      - name: Generate match previews
+        if: env.OPENROUTER_API_KEY != ''
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: python3 scripts/generate_previews.py
+
       - name: Commit and push if changed
         run: |
           if git diff --quiet; then

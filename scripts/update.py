@@ -9,13 +9,11 @@ import sys
 import urllib.request
 import urllib.parse
 import xml.etree.ElementTree as ET
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 DATA_PATH = Path(__file__).parent.parent / "data.json"
 NEWS_RSS = "https://news.google.com/rss/search?q={query}&hl=en-US&gl=US&ceid=US:en"
-TOURNAMENT_START_DATE = "2026-06-11"
-TOURNAMENT_END_DATE = "2026-07-19"
 
 # football-data.org is the sole data source for fixtures and results.
 # To track another country: add it here AND to "teams" in data.json.
@@ -28,7 +26,6 @@ FD_TEAM_NAMES = {
     "ger": {"germany", "deutschland"},
 }
 
-# Default TV info for newly discovered fixtures (knockout round games etc.)
 DEFAULT_TV = {
     "english": "FOX/FS1",
     "spanish": "Telemundo",
@@ -97,9 +94,9 @@ def fd_tracked_team(fm):
     away_lower = away_raw.lower()
     for key, names in FD_TEAM_NAMES.items():
         if home_lower in names:
-            return key, away_raw
+            return key, away_raw or "TBD"
         if away_lower in names:
-            return key, home_raw
+            return key, home_raw or "TBD"
     return None
 
 
@@ -160,6 +157,27 @@ def add_fixture_fd(data, fm):
     }
     data["matches"].append(fixture)
     print(f"New fixture: {key.upper()} vs {opponent} on {date_str} ({fixture['stage']})")
+
+
+def update_fixture_fd(m, fm):
+    """Update an existing fixture when new info arrives from FD (e.g. TBD → real opponent)."""
+    result = fd_tracked_team(fm)
+    if not result:
+        return
+    key, opponent = result
+    if m["opponent"] == "TBD" and opponent != "TBD":
+        m["opponent"] = opponent
+        m["watchNotes"] = ""
+        print(f"Opponent confirmed: {key.upper()} vs {opponent}")
+    if m.get("venue") == "TBD" and fm.get("venue"):
+        venue_raw = fm["venue"]
+        name, city, lat, lon = VENUES.get(venue_raw, (venue_raw, "", None, None))
+        m["venue"] = name
+        m["city"] = city
+        if lat:
+            m["lat"] = lat
+            m["lon"] = lon
+        print(f"Venue confirmed: {name}, {city}")
 
 
 def fetch_news_articles(query, limit=3):
@@ -229,26 +247,48 @@ def main():
     data = json.loads(original)
     now = datetime.now(timezone.utc)
 
-    # Fetch all WC matches from football-data.org (single call covers fixtures + results)
+    yesterday_str = (now - timedelta(days=1)).strftime("%Y-%m-%d")
+    today_str = now.strftime("%Y-%m-%d")
+    tomorrow_str = (now + timedelta(days=1)).strftime("%Y-%m-%d")
+
+    # ── 1. Fetch yesterday→tomorrow for today's games and results ──
+    # Covers PT timezone boundary (PT can be a day behind UTC after ~5pm PT)
+    # and games kicking off after midnight GMT that are still "today" in PT.
     try:
-        fd_all = fetch_fd_matches(TOURNAMENT_START_DATE, TOURNAMENT_END_DATE)
+        fd_today = fetch_fd_matches(yesterday_str, tomorrow_str)
     except Exception as e:
         print(f"football-data fetch failed: {e}", file=sys.stderr)
-        fd_all = []
+        fd_today = []
 
-    # Discover new fixtures for tracked teams
-    for fm in fd_all:
-        if fd_tracked_team(fm) is None:
-            continue
-        if find_local_match(data, fm) is None:
-            add_fixture_fd(data, fm)
+    # ── 2. Fixture discovery: today→+7d for knockout rounds and TBD opponents ──
+    discovery_hi = (now + timedelta(days=7)).strftime("%Y-%m-%d")
+    try:
+        fd_discovery = fetch_fd_matches(today_str, discovery_hi)
+    except Exception as e:
+        print(f"Fixture discovery fetch failed: {e}", file=sys.stderr)
+        fd_discovery = []
 
-    # Apply results for tracked matches past kickoff
+    # ── 3. Apply results for pending tracked matches ──
     pending = [m for m in data["matches"]
                if not m.get("result")
                and now > datetime.fromisoformat(m["kickoff"])]
+    pending_recent = [m for m in pending
+                      if yesterday_str <= m["kickoff"][:10] <= tomorrow_str]
+    pending_older = [m for m in pending if m not in pending_recent]
+    fd_older = []
+    if pending_older:
+        kicks = [datetime.fromisoformat(m["kickoff"]).astimezone(timezone.utc)
+                 for m in pending_older]
+        lo = (min(kicks) - timedelta(days=1)).strftime("%Y-%m-%d")
+        hi = (max(kicks) + timedelta(days=1)).strftime("%Y-%m-%d")
+        try:
+            fd_older = fetch_fd_matches(lo, hi)
+        except Exception as e:
+            print(f"football-data fetch failed (older results): {e}",
+                  file=sys.stderr)
+    fd_results = fd_today + fd_older
     for m in pending:
-        fm = find_fd_match(fd_all, m)
+        fm = find_fd_match(fd_results, m)
         if fm is None:
             print(f"No FD match found: {m['team'].upper()} vs {m['opponent']}")
         elif fm.get("status") != "FINISHED":
@@ -257,8 +297,47 @@ def main():
         else:
             apply_result_fd(m, fm, data)
 
+    # ── 4. Discover new fixtures + update TBD opponents ──
+    for fm in fd_discovery:
+        if fd_tracked_team(fm) is None:
+            continue
+        existing = find_local_match(data, fm)
+        if existing is None:
+            add_fixture_fd(data, fm)
+        else:
+            update_fixture_fd(existing, fm)
+
     recompute_records(data)
     data["matches"].sort(key=lambda m: m["kickoff"])
+
+    # ── 5. Rebuild otherMatches for Today's Games page ──
+    other_matches = []
+    for fm in fd_today:
+        if fd_tracked_team(fm) is not None:
+            continue
+        home_raw = (fm.get("homeTeam") or {}).get("name") or "?"
+        away_raw = (fm.get("awayTeam") or {}).get("name") or "?"
+        kickoff = fm["utcDate"].replace("Z", "+00:00")
+        venue_raw = fm.get("venue") or ""
+        name, city, _, _ = VENUES.get(venue_raw, (venue_raw, "", None, None))
+        score = fm.get("score") or {}
+        ft = score.get("fullTime") or {}
+        result = None
+        if fm.get("status") == "FINISHED" and ft.get("home") is not None:
+            result = {"home": ft["home"], "away": ft["away"]}
+            pens = score.get("penalties") or {}
+            if score.get("duration") == "PENALTIES" and pens.get("home") is not None:
+                result["note"] = f"{pens['home']}–{pens['away']} on penalties"
+        other_matches.append({
+            "home": home_raw,
+            "away": away_raw,
+            "kickoff": kickoff,
+            "venue": name,
+            "city": city,
+            "result": result,
+        })
+    other_matches.sort(key=lambda m: m["kickoff"])
+    data["otherMatches"] = other_matches
 
     before = {k: v for k, v in json.loads(original).items() if k != "updated"}
     after = {k: v for k, v in data.items() if k != "updated"}
