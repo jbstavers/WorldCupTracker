@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-26 04:52 UTC",
+  "updated": "2026-06-26 18:44 UTC",
   "teams": {
     "usa": {
       "name": "United States",
@@ -502,6 +502,89 @@
         }
       ],
       "espnId": "760470"
+    },
+    {
+      "team": "ger",
+      "opponent": "TBD",
+      "stage": "Round of 32",
+      "kickoff": "2026-06-29T20:30:00+00:00",
+      "venue": "TBD",
+      "city": "",
+      "lat": null,
+      "lon": null,
+      "tv": {
+        "english": "FOX/FS1",
+        "spanish": "Telemundo",
+        "streaming": "FOX One, Peacock"
+      },
+      "watchNotes": "Deutschland arrives in the Round of 32 with perfect form from Group E, fueled by Florian Wirtz’s elite creativity, Joshua Kimmich’s midfield intelligence, and Antonio Rüdiger’s confrontational defensive authority. Under Julian Nagelsmann, they will likely deploy a dynamic 4-2-3-1 that presses high to force turnovers, using the pace of Leroy Sané and the aerial presence of Kai Havertz to overwhelm opponents in the final third. This rebuilt squad, determined to end a 12-year title drought, combines disciplined pressing with explosive attacking transitions to dominate any third-placed qualifier they face in Foxborough.",
+      "previews": [],
+      "result": null,
+      "articles": []
+    },
+    {
+      "team": "mex",
+      "opponent": "TBD",
+      "stage": "Round of 32",
+      "kickoff": "2026-07-01T01:00:00+00:00",
+      "venue": "TBD",
+      "city": "",
+      "lat": null,
+      "lon": null,
+      "tv": {
+        "english": "FOX/FS1",
+        "spanish": "Telemundo",
+        "streaming": "FOX One, Peacock"
+      },
+      "watchNotes": "Mexico enters the Round of 32 as Group A's dominant leader, riding the momentum of two clean-sheet victories over South Africa and South Korea with a high-pressing, transition-heavy 4-3-3 system. Veteran striker Raúl Jiménez anchors the attack as the primary goal threat, while midfield leaders Edson Álvarez and the tireless Érik Sánchez dictate tempo and shield the backline. Under Javier Aguirre, El Tri will likely maintain their aggressive verticality and compact front three, prioritizing rapid ball recovery and quick strikes over possession to exploit opponents in this knockout stage.",
+      "previews": [
+        {
+          "title": "ESPN: Why every round-of-32 team will, won't win FIFA World Cup",
+          "url": "https://www.espn.com/soccer/story/_/id/49118437/fifa-world-cup-predictions-analysis-projections-usa-mexico-spain-brazil-england-argentina-germany-france"
+        },
+        {
+          "title": "Goal.com: Czech Republic vs Mexico FIFA World Cup 2026 Preview",
+          "url": "https://www.goal.com/en/news/czech-republic-mexico-world-cup-preview/blte3e3fb32bfa81e95"
+        },
+        {
+          "title": "SoyFutbol: Mexico's Potential Rivals in the Round of 32 at the 2026 World Cup",
+          "url": "https://www.soyfutbol.com/en/news/projecting-the-knockout-stage-mexicos-potential-rivals-in-the-round-of-32-at-the-2026-world-cup-20251205-0042.html"
+        }
+      ],
+      "result": null,
+      "articles": []
+    },
+    {
+      "team": "usa",
+      "opponent": "Bosnia-Herzegovina",
+      "stage": "Round of 32",
+      "kickoff": "2026-07-02T00:00:00+00:00",
+      "venue": "TBD",
+      "city": "",
+      "lat": null,
+      "lon": null,
+      "tv": {
+        "english": "FOX/FS1",
+        "spanish": "Telemundo",
+        "streaming": "FOX One, Peacock"
+      },
+      "watchNotes": "In the Round of 32, USA's Mauricio Pochettino likely unleashes a fluid 3-2-5 in possession (often appearing as a 2-4-4) with fullback Antonee Robinson and Sergiño Dest pushing high, directly challenging Bosnia's compact 4-4-2 low block and its potent counter-attack led by Edin Džeko and Ermedin Demirović. The tactical hinge will be whether USA's wing-backs can stretch Bosnia's defense to create space for Christian Pulisic and Giovanni Reyna, or if Bosnia's physical midfielders (Ivan Čunji and Benjaminirović) and rapid transitions via Amar Dedić can exploit the gaps left behind USA's advanced line. Watch for USA's ability to suffocate Bosnia's transition before Džeko finds space, as Bosnia's threat from set pieces and direct long balls could decide a tight knockout tie.",
+      "previews": [
+        {
+          "title": "Forebet: USA Aim to Rebound as Bosnia-Herzegovina Bring Scoring Threat to World Cup Knockout Test",
+          "url": "https://www.forebet.com/en/football-match-previews/28697-usa-aim-to-rebound-as-bosnia-herzegovina-bring-scoring-threat-to-world-cup-knockout-test"
+        },
+        {
+          "title": "ESPN: USMNT to face Bosnia-Herzegovina in World Cup round of 32",
+          "url": "https://www.espn.com/soccer/story/_/id/49181937/usa-bosnia-herzegovina-world-cup-round-32-knockout"
+        },
+        {
+          "title": "MLSSoccer: USA to face Bosnia & Herzegovina in World Cup Round of 32",
+          "url": "https://www.mlssoccer.com/competitions/fifa-world-cup/news/usa-to-face-bosnia-herzegovina-world-cup-round-of-32-usmnt"
+        }
+      ],
+      "result": null,
+      "articles": []
     }
   ],
   "collision": {
@@ -697,6 +780,54 @@
       "home": "Cape Verde Islands",
       "away": "Saudi Arabia",
       "kickoff": "2026-06-27T00:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "New Zealand",
+      "away": "Belgium",
+      "kickoff": "2026-06-27T03:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "Egypt",
+      "away": "Iran",
+      "kickoff": "2026-06-27T03:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "Panama",
+      "away": "England",
+      "kickoff": "2026-06-27T21:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "Croatia",
+      "away": "Ghana",
+      "kickoff": "2026-06-27T21:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "Colombia",
+      "away": "Portugal",
+      "kickoff": "2026-06-27T23:30:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "Congo DR",
+      "away": "Uzbekistan",
+      "kickoff": "2026-06-27T23:30:00+00:00",
       "venue": "",
       "city": "",
       "result": null
