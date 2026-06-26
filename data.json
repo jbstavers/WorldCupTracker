@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-26 01:24 UTC",
+  "updated": "2026-06-26 04:52 UTC",
   "teams": {
     "usa": {
       "name": "United States",
@@ -13,9 +13,9 @@
       "record": {
         "w": 2,
         "d": 0,
-        "l": 0,
-        "gf": 6,
-        "ga": 1
+        "l": 1,
+        "gf": 8,
+        "ga": 4
       },
       "order": 2,
       "colors": {
@@ -483,8 +483,24 @@
           "url": "https://bleacherreport.com/articles/25435511-world-cup-2026-match-predictions-all-group-fixtures"
         }
       ],
-      "result": null,
-      "articles": [],
+      "result": {
+        "us": 2,
+        "them": 3
+      },
+      "articles": [
+        {
+          "title": "FOX Sports: Türkiye vs United States Highlights | 2026 FIFA World Cup™ - FOX Sports",
+          "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTFBmTzloZmRCMUdZckhCUTludkR4aFpKanBoZDFublhkc0JXNEY0aWMxaHFKblFodmtnaVFONTdjNkFtNkNRU0gtVG8ySHFYYklEaUNHNGEyMW9rY2dha2wySGlR?oc=5"
+        },
+        {
+          "title": "FOX Sports: Türkiye vs United States Extended Highlights | 2026 FIFA World Cup™ - FOX Sports",
+          "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE1qT0JBeXlJWE1TNENXTmRMVWtMU0VkdEdyYlRSU1BnczdLNkp5X1BRb3ZvU0oyNkFkNUk1QjRFVlVxS2diRS1ybzN0d1dGdWtkWUJPaDFTSDZqckRoel9SdXRB?oc=5"
+        },
+        {
+          "title": "FOX Sports: Orkun Kökçü finishes cross to give Türkiye lead over United States | 2026 FIFA World Cup™ - FOX Sports",
+          "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE5ZTm5NcEsxUUFXZDYyU3Bwc0VGVDRnZ3VDQjl5V3VqLUk0VFFoT1NmM0YwWkdYX0Y3NndZYXhhUDAyUlNCcXUyUXpsRG5MMlNoNnpWc2FDblhGNHlXQkpnZDFB?oc=5"
+        }
+      ],
       "espnId": "760470"
     }
   ],
@@ -648,7 +664,10 @@
       "kickoff": "2026-06-26T02:00:00+00:00",
       "venue": "",
       "city": "",
-      "result": null
+      "result": {
+        "home": 0,
+        "away": 0
+      }
     },
     {
       "home": "Norway",
