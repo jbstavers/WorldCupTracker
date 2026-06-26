@@ -168,6 +168,7 @@ def update_fixture_fd(m, fm):
     if m["opponent"] == "TBD" and opponent != "TBD":
         m["opponent"] = opponent
         m["watchNotes"] = ""
+        m["previews"] = []
         print(f"Opponent confirmed: {key.upper()} vs {opponent}")
     if m.get("venue") == "TBD" and fm.get("venue"):
         venue_raw = fm["venue"]

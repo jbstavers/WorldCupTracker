@@ -18,7 +18,7 @@ MODEL = "perplexity/sonar"
 LOOKAHEAD_DAYS = 14
 
 PREFERRED_SOURCES = (
-    "The Guardian, BBC Sport, ESPN FC, FourFourTwo, The Athletic, "
+    "The Guardian, BBC Sport, ESPN FC, FourFourTwo, "
     "The Ringer, Tifo Football, Zonal Marking, StatsBomb, "
     "Bundesliga.com, MLSSoccer.com, US Soccer, El País, Marca (English), "
     "NBC Sports, CBS Sports, Sky Sports, 90min, RotoWire"
