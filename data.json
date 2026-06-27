@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-27 01:20 UTC",
+  "updated": "2026-06-27 04:42 UTC",
   "teams": {
     "usa": {
       "name": "United States",
@@ -518,7 +518,20 @@
         "streaming": "FOX One, Peacock"
       },
       "watchNotes": "Deutschland arrives in the Round of 32 with perfect form from Group E, fueled by Florian Wirtz’s elite creativity, Joshua Kimmich’s midfield intelligence, and Antonio Rüdiger’s confrontational defensive authority. Under Julian Nagelsmann, they will likely deploy a dynamic 4-2-3-1 that presses high to force turnovers, using the pace of Leroy Sané and the aerial presence of Kai Havertz to overwhelm opponents in the final third. This rebuilt squad, determined to end a 12-year title drought, combines disciplined pressing with explosive attacking transitions to dominate any third-placed qualifier they face in Foxborough.",
-      "previews": [],
+      "previews": [
+        {
+          "title": "bundesliga.com: Germany's FIFA World Cup 2026 schedule",
+          "url": "https://www.bundesliga.com/en/bundesliga/news/germany-2026-fifa-world-cup-schedule-friendlies-training-camp-fixtures-34832"
+        },
+        {
+          "title": "DAZN: When are Germany playing at 2026 World Cup?",
+          "url": "https://www.dazn.com/en-GB/news/football/fifa-world-cup-26-germany-fixtures-resutls-dates-kick-off-times-full-schedule-squad-venues/1e19filmesuzx129ijm4pelcrp"
+        },
+        {
+          "title": "Sportskeeda: Who could Germany face in the next round of the 2026 FIFA World Cup?",
+          "url": "https://www.sportskeeda.com/football/news-who-germany-face-next-round-2026-fifa-world-cup-potential-opponents-assessed-ahead-round-32"
+        }
+      ],
       "result": null,
       "articles": []
     },
@@ -736,7 +749,10 @@
       "kickoff": "2026-06-27T00:00:00+00:00",
       "venue": "",
       "city": "",
-      "result": null
+      "result": {
+        "home": 0,
+        "away": 1
+      }
     },
     {
       "home": "Cape Verde Islands",
@@ -744,7 +760,10 @@
       "kickoff": "2026-06-27T00:00:00+00:00",
       "venue": "",
       "city": "",
-      "result": null
+      "result": {
+        "home": 0,
+        "away": 0
+      }
     },
     {
       "home": "New Zealand",
@@ -811,8 +830,8 @@
       "result": null
     },
     {
-      "home": "?",
-      "away": "?",
+      "home": "South Africa",
+      "away": "Canada",
       "kickoff": "2026-06-28T19:00:00+00:00",
       "venue": "",
       "city": "",
