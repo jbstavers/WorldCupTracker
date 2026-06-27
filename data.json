@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-27 07:29 UTC",
+  "updated": "2026-06-27 10:08 UTC",
   "teams": {
     "usa": {
       "name": "United States",
@@ -727,10 +727,7 @@
       "kickoff": "2026-06-26T19:00:00+00:00",
       "venue": "",
       "city": "",
-      "result": {
-        "home": 1,
-        "away": 4
-      }
+      "result": null
     },
     {
       "home": "Senegal",
@@ -738,10 +735,7 @@
       "kickoff": "2026-06-26T19:00:00+00:00",
       "venue": "",
       "city": "",
-      "result": {
-        "home": 5,
-        "away": 0
-      }
+      "result": null
     },
     {
       "home": "Uruguay",
@@ -784,7 +778,7 @@
       "city": "",
       "result": {
         "home": 1,
-        "away": 1
+        "away": 2
       }
     },
     {
@@ -836,8 +830,8 @@
       "result": null
     },
     {
-      "home": "?",
-      "away": "?",
+      "home": "South Africa",
+      "away": "Canada",
       "kickoff": "2026-06-28T19:00:00+00:00",
       "venue": "",
       "city": "",
