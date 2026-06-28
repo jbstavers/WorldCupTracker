@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-28 04:56 UTC",
+  "updated": "2026-06-28 07:41 UTC",
   "teams": {
     "usa": {
       "name": "United States",
@@ -505,7 +505,7 @@
     },
     {
       "team": "ger",
-      "opponent": "TBD",
+      "opponent": "Paraguay",
       "stage": "Round of 32",
       "kickoff": "2026-06-29T20:30:00+00:00",
       "venue": "TBD",
@@ -517,27 +517,14 @@
         "spanish": "Telemundo",
         "streaming": "FOX One, Peacock"
       },
-      "watchNotes": "Deutschland arrives in the Round of 32 with perfect form from Group E, fueled by Florian Wirtz’s elite creativity, Joshua Kimmich’s midfield intelligence, and Antonio Rüdiger’s confrontational defensive authority. Under Julian Nagelsmann, they will likely deploy a dynamic 4-2-3-1 that presses high to force turnovers, using the pace of Leroy Sané and the aerial presence of Kai Havertz to overwhelm opponents in the final third. This rebuilt squad, determined to end a 12-year title drought, combines disciplined pressing with explosive attacking transitions to dominate any third-placed qualifier they face in Foxborough.",
-      "previews": [
-        {
-          "title": "bundesliga.com: Germany's FIFA World Cup 2026 schedule",
-          "url": "https://www.bundesliga.com/en/bundesliga/news/germany-2026-fifa-world-cup-schedule-friendlies-training-camp-fixtures-34832"
-        },
-        {
-          "title": "DAZN: When are Germany playing at 2026 World Cup?",
-          "url": "https://www.dazn.com/en-GB/news/football/fifa-world-cup-26-germany-fixtures-resutls-dates-kick-off-times-full-schedule-squad-venues/1e19filmesuzx129ijm4pelcrp"
-        },
-        {
-          "title": "Sportskeeda: Who could Germany face in the next round of the 2026 FIFA World Cup?",
-          "url": "https://www.sportskeeda.com/football/news-who-germany-face-next-round-2026-fifa-world-cup-potential-opponents-assessed-ahead-round-32"
-        }
-      ],
+      "watchNotes": "Julian Nagelsmann’s fluid 4-2-3-1 Germany, anchored by Jamal Musiala and Florian Wirtz, will clash with Gustavo Alvaro’s compact 4-4-2/5-4-1 Paraguay, creating a critical duel between Germany’s creative midfielders and Paraguay’s central defensive screen. Watch for Musiala and Wirtz attempting to exploit half-spaces between the lines while Germany’s full-backs (Raum, Kimmich) stretch Paraguay’s shape to force overloads. The match hinges on Germany’s patience in moving the ball quickly to avoid Paraguay’s disciplined counter-press and transition traps.",
+      "previews": [],
       "result": null,
       "articles": []
     },
     {
       "team": "mex",
-      "opponent": "TBD",
+      "opponent": "Ecuador",
       "stage": "Round of 32",
       "kickoff": "2026-07-01T01:00:00+00:00",
       "venue": "TBD",
@@ -549,21 +536,8 @@
         "spanish": "Telemundo",
         "streaming": "FOX One, Peacock"
       },
-      "watchNotes": "Mexico enters the Round of 32 as Group A's dominant leader, riding the momentum of two clean-sheet victories over South Africa and South Korea with a high-pressing, transition-heavy 4-3-3 system. Veteran striker Raúl Jiménez anchors the attack as the primary goal threat, while midfield leaders Edson Álvarez and the tireless Érik Sánchez dictate tempo and shield the backline. Under Javier Aguirre, El Tri will likely maintain their aggressive verticality and compact front three, prioritizing rapid ball recovery and quick strikes over possession to exploit opponents in this knockout stage.",
-      "previews": [
-        {
-          "title": "ESPN: Why every round-of-32 team will, won't win FIFA World Cup",
-          "url": "https://www.espn.com/soccer/story/_/id/49118437/fifa-world-cup-predictions-analysis-projections-usa-mexico-spain-brazil-england-argentina-germany-france"
-        },
-        {
-          "title": "Goal.com: Czech Republic vs Mexico FIFA World Cup 2026 Preview",
-          "url": "https://www.goal.com/en/news/czech-republic-mexico-world-cup-preview/blte3e3fb32bfa81e95"
-        },
-        {
-          "title": "SoyFutbol: Mexico's Potential Rivals in the Round of 32 at the 2026 World Cup",
-          "url": "https://www.soyfutbol.com/en/news/projecting-the-knockout-stage-mexicos-potential-rivals-in-the-round-of-32-at-the-2026-world-cup-20251205-0042.html"
-        }
-      ],
+      "watchNotes": "Mexico will likely deploy a compact 4-3-3 or 4-1-4-1 anchored by Edson Álvarez, who must neutralize Ecuador’s fluid 3-4-2-1 and disrupt the midfield rhythm of Moisés Caicedo in a crucial duel. The tactical battle hinges on whether Mexico’s controlled phases can withstand Ecuador’s lethal right-flank overloads and cutbacks, which exploit the vulnerability of Mexico’s left fullback channel. Watch for Álvarez’s ability to screen the backline while Romo steps forward to connect possession, as any turnover in the half-space could instantly trigger Ecuador’s high-intensity counterattacks.",
+      "previews": [],
       "result": null,
       "articles": []
     },
