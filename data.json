@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-28 07:41 UTC",
+  "updated": "2026-06-28 21:45 UTC",
   "teams": {
     "usa": {
       "name": "United States",
@@ -550,7 +550,20 @@
         "streaming": "FOX One, Peacock"
       },
       "watchNotes": "Mexico will likely deploy a compact 4-3-3 or 4-1-4-1 anchored by Edson Álvarez, who must neutralize Ecuador’s fluid 3-4-2-1 and disrupt the midfield rhythm of Moisés Caicedo in a crucial duel. The tactical battle hinges on whether Mexico’s controlled phases can withstand Ecuador’s lethal right-flank overloads and cutbacks, which exploit the vulnerability of Mexico’s left fullback channel. Watch for Álvarez’s ability to screen the backline while Romo steps forward to connect possession, as any turnover in the half-space could instantly trigger Ecuador’s high-intensity counterattacks.",
-      "previews": [],
+      "previews": [
+        {
+          "title": "Sports Mole: Mexico vs Ecuador - prediction, team news, lineups | 2026 World Cup",
+          "url": "https://www.sportsmole.co.uk/football/mexico/world-cup-2026/preview/mexico-vs-ecuador-prediction-team-news-lineups_600278.html"
+        },
+        {
+          "title": "FootballDream: Mexico vs Ecuador Predicted Starting XI & Lineups - 2026 World Cup",
+          "url": "https://www.footballdream.in/preview/mexico-vs-ecuador-world-cup-2026"
+        },
+        {
+          "title": "CBS Sports: 2026 FIFA World Cup Bracket: Knockout stage preview (Mexico vs Ecuador)",
+          "url": "https://inews.zoombangla.com/mexico-ecuador-world-cup-2026-round-of-32-preview/"
+        }
+      ],
       "result": null,
       "articles": []
     },
@@ -813,7 +826,10 @@
       "kickoff": "2026-06-28T19:00:00+00:00",
       "venue": "",
       "city": "",
-      "result": null
+      "result": {
+        "home": 0,
+        "away": 1
+      }
     },
     {
       "home": "Brazil",
