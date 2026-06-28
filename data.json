@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-28 01:26 UTC",
+  "updated": "2026-06-28 04:56 UTC",
   "teams": {
     "usa": {
       "name": "United States",
@@ -782,7 +782,10 @@
       "kickoff": "2026-06-27T23:30:00+00:00",
       "venue": "",
       "city": "",
-      "result": null
+      "result": {
+        "home": 0,
+        "away": 0
+      }
     },
     {
       "home": "Congo DR",
@@ -790,7 +793,10 @@
       "kickoff": "2026-06-27T23:30:00+00:00",
       "venue": "",
       "city": "",
-      "result": null
+      "result": {
+        "home": 3,
+        "away": 1
+      }
     },
     {
       "home": "Jordan",
@@ -798,7 +804,10 @@
       "kickoff": "2026-06-28T02:00:00+00:00",
       "venue": "",
       "city": "",
-      "result": null
+      "result": {
+        "home": 1,
+        "away": 3
+      }
     },
     {
       "home": "Algeria",
@@ -806,28 +815,23 @@
       "kickoff": "2026-06-28T02:00:00+00:00",
       "venue": "",
       "city": "",
-      "result": null
+      "result": {
+        "home": 3,
+        "away": 3
+      }
     },
     {
-      "home": "?",
-      "away": "?",
+      "home": "South Africa",
+      "away": "Canada",
       "kickoff": "2026-06-28T19:00:00+00:00",
       "venue": "",
       "city": "",
       "result": null
     },
     {
-      "home": "?",
-      "away": "?",
+      "home": "Brazil",
+      "away": "Japan",
       "kickoff": "2026-06-29T17:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": null
-    },
-    {
-      "home": "?",
-      "away": "?",
-      "kickoff": "2026-06-29T20:30:00+00:00",
       "venue": "",
       "city": "",
       "result": null
