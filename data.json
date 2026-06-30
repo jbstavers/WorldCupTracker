@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-30 01:21 UTC",
+  "updated": "2026-06-30 04:48 UTC",
   "teams": {
     "usa": {
       "name": "United States",
@@ -743,7 +743,10 @@
       "kickoff": "2026-06-30T01:00:00+00:00",
       "venue": "",
       "city": "",
-      "result": null
+      "result": {
+        "home": 3,
+        "away": 4
+      }
     },
     {
       "home": "Ivory Coast",
