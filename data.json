@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-29 21:52 UTC",
+  "updated": "2026-06-30 01:21 UTC",
   "teams": {
     "usa": {
       "name": "United States",
@@ -61,9 +61,9 @@
       "record": {
         "w": 2,
         "d": 0,
-        "l": 1,
-        "gf": 10,
-        "ga": 4
+        "l": 2,
+        "gf": 14,
+        "ga": 9
       },
       "order": 3,
       "colors": {
@@ -532,8 +532,24 @@
           "url": "https://www.sportsmole.co.uk/football/germany/world-cup-2026/preview/germany-vs-paraguay-prediction-team-news-lineups_600229.html"
         }
       ],
-      "result": null,
-      "articles": []
+      "result": {
+        "us": 4,
+        "them": 5
+      },
+      "articles": [
+        {
+          "title": "ESPN: Germany 1-1 Paraguay (Jun 29, 2026) Final Score - ESPN",
+          "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE5MRWpoUGoxRHhPZzlpQzdCc3owb0hqVDJtenZjdU1nbGFZNlhkNVd5RkRzZnBVbTJ6QUxtcTJFMm9PYUJuR3dON016amR1bi1xU3hYNzFrdVFYcEZvbzRRMVZhVDIyOUkyS1l4dTVDV1pOSUls?oc=5"
+        },
+        {
+          "title": "FOX Sports: Catch Up with Highlights - FOX Sports",
+          "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE1MMWpiQ0pKcGtMam1yT2JKcGp4a3NXZjlSTGNVaVAxV0JjMjg5c0lhTXF6UjducWlGb1ZoaXNOa01nLVhIeTdiWU5SNU81RTFrMlpnVV9RVTFiREFycmtvSkhB?oc=5"
+        },
+        {
+          "title": "FOX Sports: Germany vs Paraguay Highlights 🌎🏆 2026 FIFA World Cup™ | Round of 32 - FOX Sports",
+          "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE9UdmxoNWJYYXd0WlIxVTlVcS1zbTJJQzByZ3hMN3MxOThpVnZfZFpuZlY0NWZ2S3RDYkdvMk54Q2ZkcVcwY05WTWtNY1Axd0NyLVJQQm93bDg5S25Ua0RMZUd3?oc=5"
+        }
+      ]
     },
     {
       "team": "mex",
@@ -711,39 +727,6 @@
   },
   "otherMatches": [
     {
-      "home": "Jordan",
-      "away": "Argentina",
-      "kickoff": "2026-06-28T02:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 1,
-        "away": 3
-      }
-    },
-    {
-      "home": "Algeria",
-      "away": "Austria",
-      "kickoff": "2026-06-28T02:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 3,
-        "away": 3
-      }
-    },
-    {
-      "home": "South Africa",
-      "away": "Canada",
-      "kickoff": "2026-06-28T19:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 0,
-        "away": 1
-      }
-    },
-    {
       "home": "Brazil",
       "away": "Japan",
       "kickoff": "2026-06-29T17:00:00+00:00",
@@ -774,6 +757,22 @@
       "home": "France",
       "away": "Sweden",
       "kickoff": "2026-06-30T21:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "England",
+      "away": "Congo DR",
+      "kickoff": "2026-07-01T16:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "Belgium",
+      "away": "Senegal",
+      "kickoff": "2026-07-01T20:00:00+00:00",
       "venue": "",
       "city": "",
       "result": null
