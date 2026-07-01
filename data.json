@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-01 01:27 UTC",
+  "updated": "2026-07-01 04:57 UTC",
   "teams": {
     "usa": {
       "name": "United States",
@@ -35,10 +35,10 @@
         "Czechia"
       ],
       "record": {
-        "w": 3,
+        "w": 4,
         "d": 0,
         "l": 0,
-        "gf": 6,
+        "gf": 8,
         "ga": 0
       },
       "order": 1,
@@ -580,8 +580,24 @@
           "url": "https://inews.zoombangla.com/mexico-ecuador-world-cup-2026-round-of-32-preview/"
         }
       ],
-      "result": null,
-      "articles": []
+      "result": {
+        "us": 2,
+        "them": 0
+      },
+      "articles": [
+        {
+          "title": "FOX Sports: Mexico vs Ecuador Highlights 🌎🏆 2026 FIFA World Cup™ | Round of 32 - FOX Sports",
+          "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE85Nk45TG54MmFhUTJIWFd6dTNuY3VfVFE4TEJ6VGZkakI2OTJFS3BvUVJrcUxvcGdYZ0FxZGE0aGtzeXNiMFZyLVJmMXp1eWZwdUlTUFg0Mzlyc3dzMEgtS0xB?oc=5"
+        },
+        {
+          "title": "Al Jazeera: World Cup cohosts Mexico beat Ecuador 2-0 to reach round of 16 - Al Jazeera",
+          "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOeXRRcG54ZVh4V3VNR1hVRWtybnNrR01NSkVtdzJMVHptVldRaUNjeEt6ZVdzMlZBa1lYOVBSUVhyZmJHcmxuQ0RuVzVuSkVCTk9MV2MyMmFrWlQyM1RBdUJnMjB0ZDg4UHQ2UlhwT2lTSmxETDlISXBaQXNFUHg4S0JXelRMYTBNdzRqcjRWSGl1azNLcFdoRUE5RXd2OTJlUTZUcW9sWGlzUdIBrwFBVV95cUxPVnNpbkpSWC1rbU52RlV0NXdZWW5DQUx2eDRVUGJ3N0lIdUpkMlRGWG9RdU9yQXQ5MzJpSDhKWnNiOG9raEFQZ2FHQW54NlBVMk5Sc2tTT0pkN3VtZHRBUTcwdm5DVFVNbEhaMXJGLXF4TkstUWEzS3VweWFHMHZ1UjNKVjVBd1dXcUVSRi1kRjh3Y2R3YjRUV1dNY0k0d2RpMGl6X0lRQnhTRVFuRk1B?oc=5"
+        },
+        {
+          "title": "FOX Sports: Mexico vs Ecuador Extended Highlights 🌎🏆 2026 FIFA World Cup™ | Round of 32 - FOX Sports",
+          "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTFB2cUE5dEJTbzdqR0E1N2hCZjdfUWdLaDBocEhoVk9pc2xNaTh2N2FUVTY4cXJOOE1GUXVUeUtCNDMxWXZqejAwVkRCUXBFOUdYOHROejgwR0c3c0ZIcjFPSHZB?oc=5"
+        }
+      ]
     },
     {
       "team": "usa",
