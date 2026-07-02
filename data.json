@@ -694,7 +694,20 @@
         "streaming": "FOX One, Peacock"
       },
       "watchNotes": "Under Mauricio Pochettino, the United States will deploy an aggressive 3-4-2-1 high-press system to disrupt Belgium’s measured 4-3-3 build-up, creating a critical midfield battle between Christian Pulisic’s roaming freedom and Belgium’s technical control via Youri Tielemans and Kevin De Bruyne. Key matchups will see the USA’s high-stretching wingbacks (Anthony Robinson and Timothy Tillman) challenge Belgium’s pacey wingers like Jeremy Doku, while the contest hinges on whether the Americans can force early turnovers to exploit their vertical transitions before Belgium’s structured defense settles. Watch for Pulisic and Folarin Balogun to test Belgium’s defensive depth, as the US must maintain intense pressing to prevent the Red Devils from dominating possession and creating high-quality chances in the final third.",
-      "previews": [],
+      "previews": [
+        {
+          "title": "CBS Sports: USA vs. Belgium Round of 16 Match Preview - 2026 FIFA World Cup",
+          "url": "https://www.cbssports.com/watch/soccer/video/usa-vs-belgium-world-cup-2026-match-preview-call-it-what-you-want"
+        },
+        {
+          "title": "USA Today: USA vs Belgium World Cup predictions, picks, and analysis for Round of 16",
+          "url": "https://www.usatoday.com/story/sports/soccer/worldcup/2026/07/01/usa-belgium-world-cup-prediction-analysis-odds/90778238007/"
+        },
+        {
+          "title": "BeInSports: United States vs Belgium: World Cup 2026 Round of 16 Preview and Analysis",
+          "url": "https://www.beinsports.com/en-us/soccer/friendlies/articles/united-states-vs-belgium-date-time-and-everything-you-need-to-know-about-the-2026-world-cup-warm-up-friendly-2026-03-27"
+        }
+      ],
       "result": null,
       "articles": []
     }
