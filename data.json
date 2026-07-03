@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-02 22:33 UTC",
+  "updated": "2026-07-03 04:14 UTC",
   "teams": {
     "usa": {
       "name": "United States",
@@ -823,28 +823,6 @@
   },
   "otherMatches": [
     {
-      "home": "England",
-      "away": "Congo DR",
-      "kickoff": "2026-07-01T16:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 2,
-        "away": 1
-      }
-    },
-    {
-      "home": "Belgium",
-      "away": "Senegal",
-      "kickoff": "2026-07-01T20:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 3,
-        "away": 2
-      }
-    },
-    {
       "home": "Spain",
       "away": "Austria",
       "kickoff": "2026-07-02T19:00:00+00:00",
@@ -861,7 +839,10 @@
       "kickoff": "2026-07-02T23:00:00+00:00",
       "venue": "",
       "city": "",
-      "result": null
+      "result": {
+        "home": 2,
+        "away": 1
+      }
     },
     {
       "home": "Switzerland",
@@ -883,6 +864,30 @@
       "home": "Argentina",
       "away": "Cape Verde Islands",
       "kickoff": "2026-07-03T22:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "Colombia",
+      "away": "Ghana",
+      "kickoff": "2026-07-04T01:30:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "Canada",
+      "away": "Morocco",
+      "kickoff": "2026-07-04T17:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "Paraguay",
+      "away": "France",
+      "kickoff": "2026-07-04T21:00:00+00:00",
       "venue": "",
       "city": "",
       "result": null
