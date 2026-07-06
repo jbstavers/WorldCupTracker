@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-06 04:47 UTC",
+  "updated": "2026-07-06 22:42 UTC",
   "teams": {
     "usa": {
       "name": "United States",
@@ -855,7 +855,10 @@
       "kickoff": "2026-07-06T19:00:00+00:00",
       "venue": "",
       "city": "",
-      "result": null
+      "result": {
+        "home": 0,
+        "away": 1
+      }
     },
     {
       "home": "Argentina",
