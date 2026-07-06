@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-05 22:27 UTC",
+  "updated": "2026-07-06 04:47 UTC",
   "teams": {
     "usa": {
       "name": "United States",
@@ -37,9 +37,9 @@
       "record": {
         "w": 4,
         "d": 0,
-        "l": 0,
-        "gf": 8,
-        "ga": 0
+        "l": 1,
+        "gf": 10,
+        "ga": 3
       },
       "order": 1,
       "colors": {
@@ -676,8 +676,24 @@
           "url": "https://www.usatoday.com/story/sports/soccer/worldcup/2026/07/01/mexico-england-odds-picks-prediction-world-cup-round-of-16/90773163007/"
         }
       ],
-      "result": null,
-      "articles": []
+      "result": {
+        "us": 2,
+        "them": 3
+      },
+      "articles": [
+        {
+          "title": "FOX Sports: Mexico vs England Highlights 🌎🏆 2026 FIFA World Cup™ | Round of 16 - FOX Sports",
+          "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE5maFpoYUgxX01nZmlKRGZwQlFCM2RtM0lWMlFZN0cwbGVZbjhLVThNcDkzVk5nVlNqVE5xaUJYOE1RcG1hY0kzQ0VZXzF1M0VfYjU5QlloX0V4RmJIQUNuV2ZB?oc=5"
+        },
+        {
+          "title": "ESPN: Mexico 2-3 England: Jude Bellingham, Harry Kane propel 10-man England into World Cup quarterfinals - ESPN",
+          "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxQdkNra2tYenN6RnR5NlhaeG5iX01XRFJDUENDYlZmQlRoMFBDZ2tuWlZkSXUwWjFDMFUwb0w5dHc5RmIyZ1hOLUczSTdSWWgyRjJjUERNd1ZHeHo2WlQwN1duei0yYlZ2UzluUkI2VmcyNDg4a3NSUXN4N0VXZ3Z5N25hR0Mta1FleGxqOUpYWjQyQUVuOEZQdFgyWk80cDhaMmhLQWw2cFNzYjJSdDNWRmFHOFdtLVhMMlM5YlZOQndnUF9MbXpzUW90MUlUSnFXekxqMg?oc=5"
+        },
+        {
+          "title": "Jackson County Pilot: Live*Free*!𝚆𝙰𝚃𝙲𝙷 Mexico vs. England 𝐋𝐈𝐕𝐄 Ｓｔｒｅａｍ Ｆｒｅｅ ＯＮ Ｔｖ Ｃｈａｎｎｅｌ!FIFA™WorldCup - Jackson County Pilot",
+          "url": "https://news.google.com/rss/articles/CBMi1gJBVV95cUxQbXRxbmlMN3JObE9LTEhqYXRCQnhmVThJQ2JNdUg4aWE5cnI2bGowUVR2YXJoSGxhb1lCU1VjdEZOUklJcjQ0OXRRbGVna0tjSHpWaG5USWVCV0pOZFY2TnEtTGxNMlUzcmNxS3loamg0YU01cEtOb3NuUlUzT0RiVlV4TmZEeFAxQnlIaG9kQldmcU1lUVJEZmRNVUZnZ1NJd3drUThzYlU3cWFvaVFQSVJKM1ZfbVJIdHJZdlJZZEtVN3JrVURXRy1WUWRBQWFBZ20zVzFxVWNoVWtaYWp0Z2NhSV9NUWVQLXBMckxCek9DemxtZDg1ZV82cFg1bzdlcFYzd3FUdmVDdWNrS0hfQUI1eHFzZVE5MHpPcWR5WXR6S2l0ZktNNzQyclRpQkpfOG43MW41NlRjeFZuZ0k5NU56VUN5YkdyeFZ5bVN3ekoxQW5nemc?oc=5"
+        }
+      ]
     },
     {
       "team": "usa",
@@ -823,39 +839,6 @@
   },
   "otherMatches": [
     {
-      "home": "Colombia",
-      "away": "Ghana",
-      "kickoff": "2026-07-04T01:30:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 1,
-        "away": 0
-      }
-    },
-    {
-      "home": "Canada",
-      "away": "Morocco",
-      "kickoff": "2026-07-04T17:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 0,
-        "away": 3
-      }
-    },
-    {
-      "home": "Paraguay",
-      "away": "France",
-      "kickoff": "2026-07-04T21:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 0,
-        "away": 1
-      }
-    },
-    {
       "home": "Brazil",
       "away": "Norway",
       "kickoff": "2026-07-05T20:00:00+00:00",
@@ -870,6 +853,22 @@
       "home": "Portugal",
       "away": "Spain",
       "kickoff": "2026-07-06T19:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "Argentina",
+      "away": "Egypt",
+      "kickoff": "2026-07-07T16:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "Switzerland",
+      "away": "Colombia",
+      "kickoff": "2026-07-07T20:00:00+00:00",
       "venue": "",
       "city": "",
       "result": null
