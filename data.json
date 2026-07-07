@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-06 22:42 UTC",
+  "updated": "2026-07-07 04:29 UTC",
   "teams": {
     "usa": {
       "name": "United States",
@@ -13,9 +13,9 @@
       "record": {
         "w": 3,
         "d": 0,
-        "l": 1,
-        "gf": 10,
-        "ga": 4
+        "l": 2,
+        "gf": 11,
+        "ga": 8
       },
       "order": 2,
       "colors": {
@@ -724,8 +724,24 @@
           "url": "https://www.beinsports.com/en-us/soccer/friendlies/articles/united-states-vs-belgium-date-time-and-everything-you-need-to-know-about-the-2026-world-cup-warm-up-friendly-2026-03-27"
         }
       ],
-      "result": null,
-      "articles": []
+      "result": {
+        "us": 1,
+        "them": 4
+      },
+      "articles": [
+        {
+          "title": "ESPN: World Cup recap: Belgium strike four past U.S. as co-hosts bow out in last 16 - ESPN",
+          "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQLVVPRnYyRmppbjVFMF9oRVh6UHdnTzZ2VDlDUkxjb0sySUR0UTJRRXBtWTBhc3N0Y1Zoblo4V0kzOV9TcVNWSE5fWEhSQWh5akQ4bEVEcEdPbkoyb2lRMFVzMm9MOEtoRWZUOTU2SlQzWS1sN1NFN2F4ZmdJa19pM29JMXp3bHJ5SDBMRzlsUmJaRmEwTnluTGN3VThudjVpVmlzZldiWDZJdw?oc=5"
+        },
+        {
+          "title": "FOX Sports: United States vs Belgium Highlights 🌎🏆 2026 FIFA World Cup™ | Round of 16 - FOX Sports",
+          "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTFBIZ0d3ZDFHYlNrLS1ESHA3Y1NTLXVWUGNkMGpwaWNMTjBRc1M5S2JIS3RCNjJQM0t6dXZwZzZQR2pFUHpjS0ZKZDlFT2NXUkJQeFZ1QWtmX3FEZm9pQnJuUUdn?oc=5"
+        },
+        {
+          "title": "FOX Sports: Charles De Ketelaere scores second goal of the game to give Belgium lead over United States | 2026 FIFA World Cup - FOX Sports",
+          "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE1Obk05aEtfUFVVTWg3aEt2TGt2N2U2Q2NqaHo0aFZFT1BsbGdCcUFod3J4OEtZcEU4Z0V0YVd2VTlPWG9XamxiYUFhT3dQR00xamJ3S1V3YmhpOUpxMVhWR2pn?oc=5"
+        }
+      ]
     }
   ],
   "collision": {
@@ -838,17 +854,6 @@
     ]
   },
   "otherMatches": [
-    {
-      "home": "Brazil",
-      "away": "Norway",
-      "kickoff": "2026-07-05T20:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 1,
-        "away": 2
-      }
-    },
     {
       "home": "Portugal",
       "away": "Spain",
