@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-08 03:51 UTC",
+  "updated": "2026-07-09 04:26 UTC",
   "teams": {
     "usa": {
       "name": "United States",
@@ -855,31 +855,17 @@
   },
   "otherMatches": [
     {
-      "home": "Argentina",
-      "away": "Egypt",
-      "kickoff": "2026-07-07T16:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 3,
-        "away": 2
-      }
-    },
-    {
-      "home": "Switzerland",
-      "away": "Colombia",
-      "kickoff": "2026-07-07T20:00:00+00:00",
-      "venue": "",
-      "city": "",
-      "result": {
-        "home": 4,
-        "away": 3
-      }
-    },
-    {
       "home": "France",
       "away": "Morocco",
       "kickoff": "2026-07-09T20:00:00+00:00",
+      "venue": "",
+      "city": "",
+      "result": null
+    },
+    {
+      "home": "Spain",
+      "away": "Belgium",
+      "kickoff": "2026-07-10T19:00:00+00:00",
       "venue": "",
       "city": "",
       "result": null
